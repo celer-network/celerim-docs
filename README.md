@@ -11,4 +11,4 @@ In the above cross-chain DEX example, a user of Sushiswap can swap their ETH on 
 * ETH -> USDT on the Arbitrum-side via Sushiswap&#x20;
 * USDT on Arbitrum is bridged to BSC via cBridge as part of the Celer IM framework
 * An inter-chain message to execute a USDT->BNB swap is sent to BSC via Celer IM
-* USDT -> BNB swap on BSC-side Sushiswap is triggered by that remote call on Sushiswap
+* USDT -> BNB swap on BSC-side Sushiswap is triggered by that remote call on Sushiswap.
