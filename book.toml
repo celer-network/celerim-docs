@@ -1,0 +1,9 @@
+[book]
+title = "Celer Inter-chain Messaging(IM)"
+authors = ["jie"]
+language = "en"
+
+[output.html]
+theme = "theme"
+additional-css = ["theme/custom.css"]
+site-url = "/"
