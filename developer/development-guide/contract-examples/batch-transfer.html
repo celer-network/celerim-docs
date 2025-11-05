@@ -36,10 +36,10 @@
             const path_to_root = "../../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../../searchindex-e7ed6bd0.js";
+            window.path_to_searchindex_js = "../../../searchindex-569e09c3.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../../../toc-836fd725.js"></script>
+        <script src="../../../toc-8b16ce75.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -183,7 +183,6 @@
 <li>The receiver side implements the <code>executeMessageWithTransfer</code> interface to handle the batch transfer message, and distribute received tokens according to the message content. It also internally calls <code>sendMessage</code> to send a receipt back to the source chain app contract.</li>
 <li>The sender side implements the <code>executeMessage</code> interface to handle the receipt message.</li>
 </ol>
-<p>{% code lineNumbers=“true” %}</p>
 <pre><code class="language-solidity">contract BatchTransfer is MessageApp {
     using SafeERC20 for IERC20;
 
@@ -375,7 +374,6 @@
     }
 }
 </code></pre>
-<p>{% endcode %}</p>
 
                     </main>
 
