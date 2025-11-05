@@ -8,8 +8,6 @@ SrcApp at the source chain wants to send an arbitrary message to DstApp at the d
 
 The SrcApp sends a message to the MessageBus contract on the source chain, which emits the message event. SGN catches the event and collects signatures from all validators. The executor then submits the SGN-signed message to the MessageBus contract on the destination chain, which will verify the message info and then call the message execution function of the DstApp.
 
-
-
 ![](../../.gitbook/assets/msg-only-flow.png)
 
 ### Cross-chain message with token transfer

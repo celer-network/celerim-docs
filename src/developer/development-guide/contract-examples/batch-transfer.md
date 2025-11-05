@@ -8,7 +8,7 @@ Here is an example app that sends tokens from one sender at the source chain to 
 2. The receiver side implements the `executeMessageWithTransfer` interface to handle the batch transfer message, and distribute received tokens according to the message content. It also internally calls `sendMessage` to send a receipt back to the source chain app contract.
 3. The sender side implements the `executeMessage` interface to handle the receipt message.
 
-{% code lineNumbers="true" %}
+
 ```solidity
 contract BatchTransfer is MessageApp {
     using SafeERC20 for IERC20;
@@ -201,4 +201,4 @@ contract BatchTransfer is MessageApp {
     }
 }
 ```
-{% endcode %}
+

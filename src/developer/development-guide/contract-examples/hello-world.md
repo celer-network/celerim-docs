@@ -7,7 +7,7 @@ Here is a hello-world example that sends and receives cross-chain messages with 
 
 [Source code at GitHub](https://github.com/celer-network/sgn-v2-contracts/blob/main/contracts/message/apps/examples/MsgExampleBasic.sol).&#x20;
 
-{% code lineNumbers="true" %}
+
 ```solidity
 // A HelloWorld example for basic cross-chain message passing
 contract MsgExampleBasic is MessageApp {
@@ -46,5 +46,5 @@ contract MsgExampleBasic is MessageApp {
     }
 }
 ```
-{% endcode %}
+
 

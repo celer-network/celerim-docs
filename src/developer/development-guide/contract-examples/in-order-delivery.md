@@ -4,7 +4,7 @@ Here is an example that sends and receives cross-chain messages with guaranteed 
 
 [Source code at GitHub](https://github.com/celer-network/sgn-v2-contracts/blob/main/contracts/message/apps/examples/MsgExampleInOrder.sol).
 
-{% code lineNumbers="true" %}
+
 ```solidity
 // a simple example to enforce in-order message delivery
 contract MsgExampleInOrder is MessageApp {
@@ -60,4 +60,4 @@ contract MsgExampleInOrder is MessageApp {
     }
 }
 ```
-{% endcode %}
+

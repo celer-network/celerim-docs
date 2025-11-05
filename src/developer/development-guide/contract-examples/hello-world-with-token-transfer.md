@@ -7,7 +7,7 @@ Here is a basic hello-world example that sends and receives cross-chain messages
 
 [Source code at GitHub](https://github.com/celer-network/sgn-v2-contracts/blob/main/contracts/message/apps/examples/MsgExampleBasicTransfer.sol).&#x20;
 
-{% code lineNumbers="true" %}
+
 ```solidity
 contract MsgExampleBasicTransfer is MessageApp {
     using SafeERC20 for IERC20;
@@ -108,4 +108,4 @@ contract MsgExampleBasicTransfer is MessageApp {
     }
 }
 ```
-{% endcode %}
+

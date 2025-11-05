@@ -246,5 +246,3 @@ cBridge: [0x9B36f165baB9ebe611d491180418d8De4b8f3a1f](https://testnet.explorer.s
 
 MessageBus: [0x9Bb46D5100d2Db4608112026951c9C965b233f4D](https://testnet.explorer.sapphire.oasis.dev/address/0x9Bb46D5100d2Db4608112026951c9C965b233f4D)
 
-
-

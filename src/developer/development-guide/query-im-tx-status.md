@@ -1,7 +1,5 @@
 # Query IM Tx Status
 
-
-
 ## Get Tx status from CelerIM system
 
 <mark style="color:blue;">`GET`</mark> `https://api.celerscan.com/scan/searchByTxHash`
@@ -14,8 +12,8 @@
 | ------------------------------------ | ------ | -------------------------- |
 | tx<mark style="color:red;">\*</mark> | String | tx hash of the transaction |
 
-{% tabs %}
-{% tab title="200: OK " %}
+
+
 ```json
 {
   "err": null,
@@ -51,8 +49,8 @@
   ]
 }
 ```
-{% endtab %}
-{% endtabs %}
+
+
 
 ## Request Parameter
 

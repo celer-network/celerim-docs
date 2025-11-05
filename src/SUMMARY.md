@@ -1,6 +1,6 @@
 # Table of contents
 
-## Developer
+# Developer
 
 * [Celer IM Overview](README.md)
   * [Inter-chain App Use Cases](developer/celer-im-overview/inter-chain-app-use-cases.md)
