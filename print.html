@@ -1,0 +1,1474 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Celer Inter-chain Messaging(IM)</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+        <link rel="icon" href="favicon-dark.png" media="(prefers-color-scheme: light)">
+        <link rel="icon" href="favicon-light.png" media="(prefers-color-scheme: dark)">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="shortcut icon" href="favicon-f2934afb.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-cc69e1fb.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-56612340.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/custom-fc75f45e.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-e7ed6bd0.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-836fd725.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Celer Inter-chain Messaging(IM)</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="celer-im-overview"><a class="header" href="#celer-im-overview">Celer IM Overview</a></h1>
+<p><img src=".gitbook/assets/Celer IM.png" alt=""></p>
+<p>Celer IM fundamentally changes how multi-blockchain dApps are <strong>built</strong> and <strong>used</strong>. Instead of deploying multiple isolated copies of smart contracts on different blockchains, <strong>developers</strong> can now build <strong>inter-chain-native</strong> dApps with efficient liquidity utilization, coherent application logic, and shared states. <strong>Users</strong> of Celer IM-enabled dApps will enjoy the benefits of a diverse multi-blockchain ecosystem with the simplicity of a <strong>single-transaction</strong> UX, without complicated manual interactions across multiple blockchains. </p>
+<p>The Celer IM framework is very <strong>easy-to-use</strong> and allows a <strong>“plug’n’play” upgrade</strong> that often requires <strong>no modifications</strong> with already deployed code. As an example, <strong>Uniswap</strong> and <strong>Sushiswap</strong> can be transformed into a cross-chain DEX with just <a href="https://github.com/celer-network/sgn-v2-contracts/blob/main/contracts/message/apps/examples/TransferSwap.sol">a simple plug-in</a>. There have been some projects that implemented this functionality in production such as <a href="https://app.chainhop.exchange/">ChainHop</a> and <a href="https://app.rango.exchange/">Rango Exchange</a>.</p>
+<p>In the above cross-chain DEX example, a user of Sushiswap can swap their ETH on Arbitrum to BNB on Binance Smart Chain (BSC) <strong>with a single, simple transaction</strong>. Behind the scenes, the following has happened:</p>
+<ul>
+<li>ETH -&gt; USDT on the Arbitrum-side via Sushiswap </li>
+<li>USDT on Arbitrum is bridged to BSC via cBridge as part of the Celer IM framework</li>
+<li>An inter-chain message to execute a USDT-&gt;BNB swap is sent to BSC via Celer IM</li>
+<li>USDT -&gt; BNB swap on BSC-side Sushiswap is triggered by that remote call on Sushiswap</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="inter-chain-app-use-cases"><a class="header" href="#inter-chain-app-use-cases">Inter-chain App Use Cases</a></h1>
+<p>The current common practice of making a “multi-blockchain” dApp is done by simply <strong>replicating the same code on multiple chains</strong> where the liquidity, application logic and states of the same dApp on different chains are <strong>completely isolated from each other.</strong> In fact, except for the UI and the protocol token, nothing is shared between these instances. </p>
+<p>This approach often suffers from low liquidity efficiency, disconnected states, and a degraded user experience. Celer IM allows dApps to tap into the true potential of the multi-blockchain world by enabling a <strong>single-click user experience that benefits from much higher liquidity efficiency and coherent application logic</strong>. </p>
+<p>Some high-level examples:</p>
+<ul>
+<li><strong>DEXes</strong> that allow users to swap tokens across multiple chains from just one chain and with only a single transaction (e.g., <a href="https://app.chainhop.exchange/">ChainHop</a> and <a href="https://app.rango.exchange/">Rango Exchange</a>).</li>
+<li><strong>NFT Bridge</strong> that allows users to send their NFTs across different chains (e.g., <a href="https://cbridge.celer.network/nft">cBridge NFT</a>).</li>
+<li><strong>Yield aggregators</strong> that allow users to manage multi-blockchain vaults from a single chain</li>
+<li><strong>Lending protocols</strong> where collateral can be provided on one chain in order to borrow assets on a different chain</li>
+<li><strong>DAO governance protocols</strong> that allow unified governance mechanisms without requiring governance tokens to be moved across different chains</li>
+<li><strong>NFT marketplaces</strong> where a user from one chain can place bids on an auction taking place on a completely different chain</li>
+<li><strong>Metaverse games</strong> where users can interact seamlessly in the game with virtual items from various chains</li>
+<li><strong>New kinds of cross-chain asset transfer bridges</strong> with different liquidity models, validation models, or even privacy features that can be built and co-exist under the same framework. In fact, <a href="http://cbridge.celer.network/">cBridge</a> can be seen as an asset bridge built on Celer IM.</li>
+</ul>
+<p>Let’s walk through some examples in more detail and then we can dive into a more technical flow walkthrough. </p>
+<p><strong>Decentralized Exchanges</strong></p>
+<p>Today a multi-blockchain DEX has to build liquidity pools for the same key asset pairs on every chain they are deployed on. As a result, a DEX has to spread out the farming incentives across all of these different chains for these pairs. Even though the total liquidity across all of the chains may be fairly high, the liquidity depth of each pool on each individual chain is actually spread thin. Unfortunately, this harms the overall trading experience by creating high slippage. In addition, for users who want to make a trade for a token where deep liquidity exists on a different chain, they have to manually swap on the originating chain, use a separate fund bridge app, and then switch to the other chain to make the final swap. </p>
+<p>DEXes built using Celer IM have a significantly improved trader experience by automatically routing their trade to the deep liquidity pool with just a single transaction. With this innovation, a DEX project will be able to concentrate the farming incentives for a pair of tokens on a single pool, creating deeper liquidity with low slippage. </p>
+<p><strong>Lending Protocols</strong></p>
+<p>Today, if a user provides collateral in a lending protocol on one chain, they can only borrow assets on that same chain. In order to borrow assets from a different chain, they have to withdraw their liquidity, manually move it to a different chain, then provide liquidity in the new chain’s collateral pool. </p>
+<p>Celer IM enables a new kind of inter-chain lending where a user is able to seamlessly move their collateral from a liquidity pool on one chain to a pool on a different chain, all in a single transaction. Then, they can directly borrow assets on that new chain. With this functionality, users will have a simple and clean UX that lets them accomplish what they need to without having to leave the lending application! </p>
+<p><strong>NFT Marketplaces</strong></p>
+<p>Today, if a user wants to participate in an NFT auction, they must have funds on the blockchain where the NFT exists. It excludes people who would normally partake in the auction but don’t have funds on that particular chain. When a marketplace like OpenSea is deployed on a chain like Ethereum, a good chunk of the audiences that are on other chains are excluded due to the complicated bridging operations and high gas costs.</p>
+<p>Celer IM can help to expand NFT marketplaces to reach a wider audience. An auction will have the ability to take bids across chains other than where the NFT was initially minted. On top of this, there isn’t a need to make any individual cross-chain fund transfers before the auction results are finalized. This significantly reduces the costs of participating in an NFT auction, decreasing the barriers to entry and enlarging the trader pool for the marketplace as a whole. </p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="architecture-walkthrough"><a class="header" href="#architecture-walkthrough">Architecture Walkthrough</a></h1>
+<p>This section describes the Celer IM architecture, design pattern, and end-to-end protocols</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="celer-im-design-patterns"><a class="header" href="#celer-im-design-patterns">Celer IM Design Patterns</a></h1>
+<p>In this section, we introduce the architecture of Celer IM via a step-by-step walkthrough of common application design patterns. </p>
+<h3 id="cross-chain-logic-execution-with-accompanying-fund-transfer"><a class="header" href="#cross-chain-logic-execution-with-accompanying-fund-transfer-1">Cross-chain logic execution with accompanying fund transfer <a href="#cross-chain-logic-execution-with-accompanying-fund-transfer-1" id="cross-chain-logic-execution-with-accompanying-fund-transfer-1"></a></a></h3>
+<p>For many inter-chain-native applications, the core flow often involves the process of sending funds to one or more chains and using those bridged funds to <em>do something</em> on the destination chain(s). In fact, the DEX demo given above uses this exact pattern. Links to the demo code will be provided throughout this walkthrough. </p>
+<p><img src="https://lh6.googleusercontent.com/CVTliSOnOQigmDf-dcU-_Y0nqW7ylXfcfYbzoYYwZt-SB0iV7wL1vMaqZxKK3sQr75qXG1pFxqeTpgds63NUL-GSkvRcrBy_yP8H8bIBYCDZGSrRXYLY_IVm66OqkdjrcvSS43AH" alt=""></p>
+<p>While the above flow diagram seems complicated, we want to highlight that most of this flow is handled by Celer IM, and that developers will only need to work with two simple functions in the framework’s <a href="https://github.com/celer-network/sgn-v2-contracts/tree/main/contracts/message/framework">application template</a>. </p>
+<p><strong>Step 1: User initiates a transaction to dApp</strong></p>
+<p>Instead of interfacing directly with the existing dApp smart contracts, a user now interacts (mark A) with a new dApp Plug-in contract to express their intention of cross-chain logic execution. This dApp plug-in becomes part of the overall dApp business logic and may interact with existing smart contracts on the source chain. This is usually the only transaction that a user sends to interact with this inter-chain dApp. </p>
+<p>In the DEX example shown, the <a href="https://github.com/celer-network/sgn-v2-contracts/blob/1c65d5538ff8509c7e2626bb1a857683db775231/contracts/message/apps/examples/TransferSwap.sol#L104">transferWithSwap</a> function serves as this entry point that allows a user to express the intention of “swap Token A to Token B on Chain X and use the resulting Token B to swap for Token C on Chain Y”.</p>
+<p>Of course, users usually do not manually specify these intentions. dApps using this framework are expected to compose higher-level user intent to these kinds of function calls. </p>
+<p><strong>Step 2: dApp Plug-in sends a message and associated cross-chain fund transfer</strong></p>
+<p>After completing the necessary actions on the source chain, the dApp Plug-in sends the resulting funds and the associated message across to the destination chain (marked B, C). The message specifies the action that needs to be carried out on the destination chain. In the <a href="https://github.com/celer-network/sgn-v2-contracts/blob/main/contracts/message/apps/examples/TransferSwap.sol">DEX’s example</a>, it is “swap the bridged token B to token C and give token C to the user”. The message and the fund transfer are automatically associated together by simply calling <a href="https://github.com/celer-network/sgn-v2-contracts/blob/1c65d5538ff8509c7e2626bb1a857683db775231/contracts/message/apps/examples/TransferSwap.sol#L104">sendMessageWithTransfer</a>. The message is then sent to the <a href="https://github.com/celer-network/sgn-v2-contracts/tree/main/contracts/message/messagebus">Message Bus contract</a>, and the fund transfer is sent via an asset bridge, in this case, <a href="http://cbridge.celer.network/">cBridge</a>. </p>
+<p><strong>Note:</strong> Celer IM can utilize other asset bridges in this application pattern, while cBridge is just the first asset bridge that is supported. </p>
+<p><strong>Step 3: State Guardian Network (SGN) routes the message and cross-chain fund transfer</strong> </p>
+<p>To understand this step, we must first introduce a core component in Celer IM: the State Guardian Network (SGN). The SGN is a Proof-of-Stake (PoS) blockchain built on Tendermint that serves as the <strong>message router</strong> between different blockchains. Node providers have to stake CELR tokens to join the consensus process of the SGN as a validator. The SGN uses the same security mechanisms as L1 blockchains like the Cosmos and Polygon PoS chains. The SGN’s CELR staking and slashing mechanisms are all implemented on Ethereum L1 smart contracts. </p>
+<p>The SGN validator nodes are continuously monitoring the transactions happening on all of the connected chains. When a transaction triggers a <a href="https://github.com/celer-network/sgn-v2-contracts/blob/1c65d5538ff8509c7e2626bb1a857683db775231/contracts/message/messagebus/MessageBusSender.sol#L15-L27">cross-chain message event</a> in the <a href="https://github.com/celer-network/sgn-v2-contracts/tree/main/contracts/message/messagebus">Message Bus</a> contract (marked D), validators will first reach a consensus on the existence of such message and concurrently generate a stake-weighed multi-signature attestation. This attestation is then stored on the SGN chain and waits to be relayed to the destination via an Executor subscribing to the message (marked H). </p>
+<p>For the cross-chain asset transfer, the cBridge contract can be seen as a specialized message bus with built-in optimizations for this purpose. A similar consensus and attestation process takes place (marked E). Instead of relaying this built-in fund transfer attestation to an off-chain Executor, the SGN validators themselves send the on-chain transaction to the cBridge contract (marked F) and trigger the fund transfer to the destination chain’s dApp Plug-in contract (marked G). Again, Celer IM can be connected to <strong>any asset bridge</strong> but starts with Celer’s <a href="http://cbridge.celer.network/">cBridge</a> set as the default. </p>
+<p><strong>Step 4: Executor performs cross-chain application logic</strong> </p>
+<p>The Executor’s task is to read the stake-weighted multi-signature attestation from the SGN blockchain and simply relay it to the Message Bus on the destination chain (marked I). An Executor can be run by anyone for any application as the functionality is simply relaying the message. Of course, dApps are expected to take Executor incentives into consideration as it is the entity that sends out the transaction and pays the gas fee on the destination chain. </p>
+<p>The functionality of the MessageBus is to check the validity of the attested message and verify that the associated payment has been received by the dApp Plug-in (mark J). After that, the message (logic execution instruction) is delivered to the dApp Plug-in contract, which hosts the dApp’s inter-chain business logic on the destination chain (marked K). </p>
+<p>The dApp Plug-in only needs to implement the <a href="https://github.com/celer-network/sgn-v2-contracts/blob/1c65d5538ff8509c7e2626bb1a857683db775231/contracts/message/framework/MessageReceiverApp.sol#L47">executeMessageWithTransfer</a> interface. In the DEX example, <a href="https://github.com/celer-network/sgn-v2-contracts/blob/1c65d5538f/contracts/message/apps/examples/TransferSwap.sol#L249">this function</a> will execute the “Token B to Token C swap” on the destination chain.</p>
+<h3 id="cross-chain-logic-execution-without-fund-transfer"><a class="header" href="#cross-chain-logic-execution-without-fund-transfer-1">Cross-chain logic execution without fund transfer <a href="#cross-chain-logic-execution-without-fund-transfer-1" id="cross-chain-logic-execution-without-fund-transfer-1"></a></a></h3>
+<p>Many applications only need to send cross-chain messages or logic execution instructions without fund transfer. In the NFT marketplace for example, if a user participates in an auction that takes place on a different chain, they will only need to lock up their funds without actually transferring them to the destination chain in order to place a bid. It is only after they win the auction that a fund transfer will be required. </p>
+<p><img src="https://lh5.googleusercontent.com/bSDQ8rOhrFxfsrzAY3oRgz0FvVhyWgj3Fy3OG-agY9zuUXQeR6Rdj9fhBC-0KvACab2UjqGwxcfHA9kv-GevdXug5r7odCPTnTn4nTXmB6FiCLir8889g4VUECSPce11Jpo6HHUz" alt=""></p>
+<p>The flow for this would just be a simplified version of the first pattern. The dApp Plugin would only need to implement the logic to call <a href="https://github.com/celer-network/sgn-v2-contracts/blob/1c65d5538f/contracts/message/framework/MessageSenderApp.sol#L28">sendMessage</a> on the source chain and then implement the <a href="https://github.com/celer-network/sgn-v2-contracts/blob/1c65d5538f/contracts/message/framework/MessageReceiverApp.sol#L21">executeMessage</a> function on the destination chain’s dApp Plug-in contract. </p>
+<h3 id="failure-handling"><a class="header" href="#failure-handling-1">Failure Handling <a href="#failure-handling-1" id="failure-handling-1"></a></a></h3>
+<p>Due to the asynchronous nature of the above inter-chain messaging patterns, failure handling should be considered as part of the application logic. In these application patterns, failures can happen in the following three steps, and they should each be handled accordingly:</p>
+<ol>
+<li>Source chain dApp logic execution failure. This is not related to Celer IM and should be handled by the dApp business logic itself (e.g. deadline exceeded for a DEX swap). </li>
+<li>Fund transfer failed in the asset bridge. The source chain dApp will be notified via a common interface and handle the refunded asset transfer by either retrying the fund transfer or sending it back to the user. </li>
+<li>Destination chain dApp logic execution failure. When a user’s fund reaches the destination chain, the dApp logic execution can still fail at that point. The dApp developers should prepare for this and should implement fallback functions in order to handle such a failure. A common way to handle such a failure can be to stop the execution and send the funds to the user on the destination chain or transfer the funds back to the source chain, but it is entirely up to the dApp developer to implement the specific logic of the fallback functions. </li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="end-to-end-workflow"><a class="header" href="#end-to-end-workflow">End-to-End Workflow</a></h1>
+<p>This section shows the more detailed end-to-end cross-chain message implementation diagrams. </p>
+<h3 id="cross-chain-message-without-token-transfer"><a class="header" href="#cross-chain-message-without-token-transfer">Cross-chain message without token transfer</a></h3>
+<p>SrcApp at the source chain wants to send an arbitrary message to DstApp at the destination chain without associated token transfer. Figure below describes the end-to-end workflow.</p>
+<p>The SrcApp sends a message to the MessageBus contract on the source chain, which emits the message event. SGN catches the event and collects signatures from all validators. The executor then submits the SGN-signed message to the MessageBus contract on the destination chain, which will verify the message info and then call the message execution function of the DstApp.</p>
+<p><img src=".gitbook/assets/msg-only-flow.png" alt=""></p>
+<h3 id="cross-chain-message-with-token-transfer"><a class="header" href="#cross-chain-message-with-token-transfer">Cross-chain message with token transfer</a></h3>
+<p>SrcApp at the source chain wants to send some tokens to DstApp at the destination chain, along with an arbitrary message associated with the transfer. Figure below describes the end-to-end flow of such transfers. <mark style="color:blue;background-color:blue;">Blue</mark> represents token transfer flow, while <mark style="color:green;background-color:green;">green</mark> represents message passing flow. Numbers show time sequence, which means steps with the same number can happen concurrently.</p>
+<p>The SrcApp sends both cross-chain token transfer and message passing requests in a single transaction. SGN catches and correlates both events, then completes the token transfer at the destination chain. The executor then submits the SGN-signed message and token transfer info to the MessageBus at the destination chain, which will verify the submitted info and call DstApp to execute the message.</p>
+<p><img src=".gitbook/assets/image.png" alt=""></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="fee-mechanism"><a class="header" href="#fee-mechanism">Fee Mechanism</a></h1>
+<h3 id="sgn-fee"><a class="header" href="#sgn-fee">SGN Fee</a></h3>
+<p>SGN charges fees to sync, store, and sign messages. Whoever calls <code>sendMessageWithTransfer</code> or <code>sendMessage</code> in <a href="https://github.com/celer-network/sgn-v2-contracts/blob/main/contracts/message/messagebus/MessageBusSender.sol">MessageBusSender</a> should put some fee as <code>msg.value</code> in the transaction, which will later be distributed to SGN validators and delegators. The fee amount is calculated as <a href="https://github.com/celer-network/sgn-v2-contracts/blob/1c65d5538f/contracts/message/messagebus/MessageBusSender.sol#L133-L135"><code>feeBase + _message.length * feePerByte</code></a>.</p>
+<h3 id="executor-fee"><a class="header" href="#executor-fee">Executor Fee</a></h3>
+<p>Executor charges fees to submit execute message transactions. How to charge and distribute executor fees is entirely decided at the application level. Celer IM framework does not enforce any executor fee mechanism.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="celr-token-utility"><a class="header" href="#celr-token-utility">CELR Token Utility</a></h1>
+<h3 id="network-value-accrual-and-fees"><a class="header" href="#network-value-accrual-and-fees-1">Network Value Accrual and Fees <a href="#network-value-accrual-and-fees-1" id="network-value-accrual-and-fees-1"></a></a></h3>
+<p>It is obvious that CELR token stakers and validators in the SGN are indispensable in the smooth operation of Celer IM, as explained in both of the above models. </p>
+<p>As such, users of Celer IM are required to pay fees to the SGN in return for its services of reaching consensus and storing attestations of the source chain messages, as well as the fund transfer. This is very much like a fee being paid for any other PoS blockchain validators. These fees are distributed to the CELR stakers corresponding to the SGN nodes that generate the block. </p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="development-guide"><a class="header" href="#development-guide">Development Guide</a></h1>
+<p>The following sections provide detailed guidance on developing multi-chain apps using Celer IM.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="contract-framework"><a class="header" href="#contract-framework">Contract Framework</a></h1>
+<p>We provide a <a href="https://github.com/celer-network/sgn-v2-contracts/blob/main/contracts/message/framework">dApp contract framework</a>, which implements the common process of Celer IM.  By inheriting the app framework <a href="https://github.com/celer-network/sgn-v2-contracts/blob/main/contracts/message/framework/MessageApp.sol">MessageApp.sol</a>, <strong>the cross-chain smart contract developers only need to focus on the app-specific logic.</strong></p>
+<h3 id="send-message"><a class="header" href="#send-message">Send Message</a></h3>
+<p>To send cross-chain messages, the dApp contract needs to interact with the Celer IM <a href="https://github.com/celer-network/sgn-v2-contracts/blob/main/contracts/message/messagebus/MessageBusSender.sol">MessageBus  (MessageBusSender) contract</a> on the src chain.</p>
+<h4 id="send-a-message-without-an-associated-cross-chain-token-transfer"><a class="header" href="#send-a-message-without-an-associated-cross-chain-token-transfer">Send a message without an associated cross-chain token transfer</a></h4>
+<p>The dApp contract should use the <a href="https://github.com/celer-network/sgn-v2-contracts/blob/563638cdd0f056d01f391f412dcec2cdca8914e3/contracts/message/framework/MessageSenderApp.sol#L18-L35">sendMessage function</a> of the inherited MessageSenderApp contract to send a cross-chain message.</p>
+<pre><code class="language-solidity">function sendMessage(
+    address _receiver,
+    uint64 _dstChainId,
+    bytes memory _message,
+    uint256 _fee
+) internal
+</code></pre>
+<p>The message will be typed as <code>MsgType.MessageOnly</code>, and will be identified in Celer SGN through its messageId, which is computed as a hash of <code>&lt;msgType, sender, receiver, srcChainId, srcTxHash, dstChainId, message&gt;</code>. The caller needs to make sure of the uniqueness of the messageId. If multiple messages with the same Id are sent, only one of them will succeed at the destination chain.</p>
+<h4 id="send-a-message-with-an-associated-cross-chain-token-transfer"><a class="header" href="#send-a-message-with-an-associated-cross-chain-token-transfer">Send a message with an associated cross-chain token transfer </a></h4>
+<p>The dApp contract should use the <a href="https://github.com/celer-network/sgn-v2-contracts/blob/563638cdd0f056d01f391f412dcec2cdca8914e3/contracts/message/framework/MessageSenderApp.sol#L48-L89">sendMessageWithTransfer function</a> of the inherited MessageSenderApp contract to send messages with associated cross-chain token transfers.</p>
+<pre><code class="language-solidity">function sendMessageWithTransfer(
+    address _receiver,
+    address _token,
+    uint256 _amount,
+    uint64 _dstChainId,
+    uint64 _nonce,
+    uint32 _maxSlippage,
+    bytes memory _message,
+    MsgDataTypes.BridgeSendType _bridgeSendType,
+    uint256 _fee
+) internal returns (bytes32) // return transferId
+</code></pre>
+<p>The <a href="https://github.com/celer-network/sgn-v2-contracts/blob/563638cdd0/contracts/message/libraries/MsgDataTypes.sol#L6-L15"><code>BridgeSendType</code></a> could be <code>Liquidity, PegDeposit, PegBurn, PegV2Deposit, PegV2Burn, PegV2BurnFrom</code>.</p>
+<p>The message will be typed as <code>MsgType.MessageWithTransfer</code>, and will be identified in Celer SGN through the returned <code>transferId</code></p>
+<h4 id="message-fee"><a class="header" href="#message-fee">Message Fee</a></h4>
+<p>For both function calls above, message fees are charged in the native gas token. Here is how to <a href="https://github.com/celer-network/sgn-v2-contracts/blob/563638cdd0f056d01f391f412dcec2cdca8914e3/contracts/message/messagebus/MessageBusSender.sol#L128-L135">calculate and query the fee</a>.</p>
+<h3 id="receive-message"><a class="header" href="#receive-message">Receive Message</a></h3>
+<p>To receive cross-chain messages, the dApp contract needs to implement (some of) the <code>message execution</code> functions defined in the inherited <a href="https://github.com/celer-network/sgn-v2-contracts/blob/main/contracts/message/framework/MessageReceiverApp.sol">MessageReceiverApp</a>. </p>
+<p>These functions return <code>ExecutionStatus</code>, which could be <code>Success</code>, <code>Fail</code>, or <code>Retry</code>. The <a href="https://github.com/celer-network/sgn-v2-contracts/blob/main/contracts/message/messagebus/MessageBusReceiver.sol">MessageBus (MessageBusReceiver) contract</a> which calls the dApp’s message execution functions will ensure that <em>each message will be executed exactly once</em> if the function returns <code>Success</code> or <code>Fail</code> or is reverted. If the function returns <code>Retry</code>, the message can be executed again later.</p>
+<h4 id="receive-a-message-without-an-associated-cross-chain-token-transfer"><a class="header" href="#receive-a-message-without-an-associated-cross-chain-token-transfer">Receive a message without an associated cross-chain token transfer</a></h4>
+<p>The dApp contract should implement the <a href="https://github.com/celer-network/sgn-v2-contracts/blob/6e19c559a8b8c644060af53286aa57cb1fc9a46c/contracts/message/framework/MessageReceiverApp.sol#L14-L26">executeMessage interface</a> to receive a message without associated token transfer.</p>
+<pre><code class="language-solidity">function executeMessage(
+    address _sender,
+    uint64 _srcChainId,
+    bytes calldata _message,
+    address _executor
+) external payable virtual override onlyMessageBus returns (ExecutionStatus) {}
+</code></pre>
+<p>Do not forget to use the <code>onlyMessageBus</code> modifier, as message execution functions should only be called by the <code>MessageBus</code> contract.</p>
+<h4 id="receive-a-message-with-an-associated-cross-chain-token-transfer"><a class="header" href="#receive-a-message-with-an-associated-cross-chain-token-transfer">Receive a message with an associated cross-chain token transfer</a></h4>
+<p>The dApp contract should implement the <a href="https://github.com/celer-network/sgn-v2-contracts/blob/6e19c559a8b8c644060af53286aa57cb1fc9a46c/contracts/message/framework/MessageReceiverApp.sol#L37-L90">executeMessageWithTransfer interfaces</a> to receive a message with an associated cross-chain token transfer.</p>
+<p>The <a href="https://github.com/celer-network/sgn-v2-contracts/blob/main/contracts/message/messagebus/MessageBusReceiver.sol">MessageBus contract</a> will guarantee that the correct amount of tokens have already been received by the dApp contract before calling the dApp’s message execution functions.</p>
+<pre><code class="language-solidity">// receive and execute messages at dst chain
+function executeMessageWithTransfer(
+    address _sender,
+    address _token,
+    uint256 _amount,
+    uint64 _srcChainId,
+    bytes calldata _message,
+    address _executor
+) external payable virtual override onlyMessageBus returns (ExecutionStatus) {}
+</code></pre>
+<p>If the function above got reverted for any reason. The dApp contract can optionally implement a fallback function to decide what to do with the received tokens. </p>
+<pre><code class="language-solidity">// optional fallback function at dst chain
+function executeMessageWithTransferFallback(
+    address _sender,
+    address _token,
+    uint256 _amount,
+    uint64 _srcChainId,
+    bytes calldata _message,
+    address _executor
+) external payable virtual override onlyMessageBus returns (ExecutionStatus) {}
+</code></pre>
+<p>A cross-chain token transfer could fail due to bad slippage or other reasons. In this case, the Celer SGN will refund the token to the dApp contract on the source chain, which should implement a message execution function to handle the possible refund.</p>
+<pre><code class="language-solidity">// handle messages with refunded token transfer at src chain
+function executeMessageWithTransferRefund(
+    address _token,
+    uint256 _amount,
+    bytes calldata _message,
+    address _executor
+) external payable virtual override onlyMessageBus returns (ExecutionStatus) {}ol
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="contract-examples"><a class="header" href="#contract-examples">Contract Examples</a></h1>
+<p>Now we provide a few examples to show how to build multi-chain dApp contracts on top of Celer IM. All source code can be found on our <a href="https://github.com/celer-network/sgn-v2-contracts/tree/main/contracts/message/apps">GitHub repo</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="hello-world"><a class="header" href="#hello-world">Hello World</a></h1>
+<p>Here is a hello-world example that sends and receives cross-chain messages with simple logics:</p>
+<ul>
+<li>Users call <code>sendMessage</code> on the source chain to send a cross-chain message.</li>
+<li>The receiver side implements <code>executeMessage</code> to receive and emit the message at the destination chain.</li>
+</ul>
+<p><a href="https://github.com/celer-network/sgn-v2-contracts/blob/main/contracts/message/apps/examples/MsgExampleBasic.sol">Source code at GitHub</a>. </p>
+<p>{% code lineNumbers=“true” %}</p>
+<pre><code class="language-solidity">// A HelloWorld example for basic cross-chain message passing
+contract MsgExampleBasic is MessageApp {
+    event MessageReceived(
+        address srcContract,
+        uint64 srcChainId,
+        address sender,
+        bytes message
+    );
+
+    constructor(address _messageBus) MessageApp(_messageBus) {}
+
+    // called by user on source chain to send cross-chain messages
+    function sendMessage(
+        address _dstContract,
+        uint64 _dstChainId,
+        bytes calldata _message
+    ) external payable {
+        bytes memory message = abi.encode(msg.sender, _message);
+        sendMessage(_dstContract, _dstChainId, message, msg.value);
+    }
+
+    // called by MessageBus on destination chain to receive cross-chain messages
+    function executeMessage(
+        address _srcContract,
+        uint64 _srcChainId,
+        bytes calldata _message,
+        address // executor
+    ) external payable override onlyMessageBus returns (ExecutionStatus) {
+        (address sender, bytes memory message) = abi.decode(
+            (_message),
+            (address, bytes)
+        );
+        emit MessageReceived(_srcContract, _srcChainId, sender, message);
+        return ExecutionStatus.Success;
+    }
+}
+</code></pre>
+<p>{% endcode %}</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="hello-world-with-token-transfer"><a class="header" href="#hello-world-with-token-transfer">Hello World with Token Transfer</a></h1>
+<p>Here is a basic hello-world example that sends and receives cross-chain messages with associated token transfers:</p>
+<ul>
+<li>Users call <code>sendTokenWithNote</code> on the source chain to send some tokens with an arbitrary bytes note to the destination chain</li>
+<li>The receiver side implements <code>executeMessageWithTransfer</code>, which records received token balances for each sender, and emits events with transfer info including the note.</li>
+</ul>
+<p><a href="https://github.com/celer-network/sgn-v2-contracts/blob/main/contracts/message/apps/examples/MsgExampleBasicTransfer.sol">Source code at GitHub</a>. </p>
+<p>{% code lineNumbers=“true” %}</p>
+<pre><code class="language-solidity">contract MsgExampleBasicTransfer is MessageApp {
+    using SafeERC20 for IERC20;
+
+    event MessageWithTransferReceived(
+        address sender,
+        address token,
+        uint256 amount,
+        uint64 srcChainId,
+        bytes note
+    );
+    event MessageWithTransferRefunded(
+        address sender,
+        address token,
+        uint256 amount,
+        bytes note
+    );
+
+    // acccount, token -&gt; balance
+    mapping(address =&gt; mapping(address =&gt; uint256)) public balances;
+
+    constructor(address _messageBus) MessageApp(_messageBus) {}
+
+    // called by user on source chain to send token with note to destination chain
+    function sendTokenWithNote(
+        address _dstContract,
+        address _token,
+        uint256 _amount,
+        uint64 _dstChainId,
+        uint64 _nonce,
+        uint32 _maxSlippage,
+        bytes calldata _note,
+        MsgDataTypes.BridgeSendType _bridgeSendType
+    ) external payable {
+        IERC20(_token).safeTransferFrom(msg.sender, address(this), _amount);
+        bytes memory message = abi.encode(msg.sender, _note);
+        sendMessageWithTransfer(
+            _dstContract,
+            _token,
+            _amount,
+            _dstChainId,
+            _nonce,
+            _maxSlippage,
+            message,
+            _bridgeSendType,
+            msg.value
+        );
+    }
+
+    // called by MessageBus on the destination chain to receive message with token 
+    // transfer, record and emit info.
+    // the associated token transfer is guaranteed to have already been received
+    function executeMessageWithTransfer(
+        address, // srcContract
+        address _token,
+        uint256 _amount,
+        uint64 _srcChainId,
+        bytes memory _message,
+        address // executor
+    ) external payable override onlyMessageBus returns (ExecutionStatus) {
+        (address sender, bytes memory note) = abi.decode(
+            (_message),
+            (address, bytes)
+        );
+        balances[sender][_token] += _amount;
+        emit MessageWithTransferReceived(
+            sender,
+            _token,
+            _amount,
+            _srcChainId,
+            note
+        );
+        return ExecutionStatus.Success;
+    }
+
+    // called by MessageBus on the source chain to handle message with 
+    // failed associated token transfer.
+    // the failed token transfer is guaranteed to have already been refunded
+    function executeMessageWithTransferRefund(
+        address _token,
+        uint256 _amount,
+        bytes calldata _message,
+        address // executor
+    ) external payable override onlyMessageBus returns (ExecutionStatus) {
+        (address sender, bytes memory note) = abi.decode(
+            (_message),
+            (address, bytes)
+        );
+        IERC20(_token).safeTransfer(sender, _amount);
+        emit MessageWithTransferRefunded(sender, _token, _amount, note);
+        return ExecutionStatus.Success;
+    }
+
+    // called by user on destination chain to withdraw tokens
+    function withdraw(address _token, uint256 _amount) external {
+        balances[msg.sender][_token] -= _amount;
+        IERC20(_token).safeTransfer(msg.sender, _amount);
+    }
+}
+</code></pre>
+<p>{% endcode %}</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="in-order-delivery"><a class="header" href="#in-order-delivery">In-Order Delivery</a></h1>
+<p>Here is an example that sends and receives cross-chain messages with guaranteed in-order delivery.</p>
+<p><a href="https://github.com/celer-network/sgn-v2-contracts/blob/main/contracts/message/apps/examples/MsgExampleInOrder.sol">Source code at GitHub</a>.</p>
+<p>{% code lineNumbers=“true” %}</p>
+<pre><code class="language-solidity">// a simple example to enforce in-order message delivery
+contract MsgExampleInOrder is MessageApp {
+    event MessageReceived(
+        address srcContract,
+        uint64 srcChainId,
+        address sender,
+        uint64 seq,
+        bytes message
+    );
+    
+    // map at source chain. (dstChainId, dstContract) -&gt; seq
+    mapping(uint64 =&gt; mapping(address =&gt; uint64)) public sendSeq;
+
+    // map at destination chain (srcChainId, srcContract) -&gt; seq
+    mapping(uint64 =&gt; mapping(address =&gt; uint64)) public recvSeq;
+
+    constructor(address _messageBus) MessageApp(_messageBus) {}
+
+    // called by user on source chain to send cross-chain message
+    function sendMessage(
+        address _dstContract,
+        uint64 _dstChainId,
+        bytes calldata _message
+    ) external payable {
+        uint64 seq = sendSeq[_dstChainId][_dstContract];
+        bytes memory message = abi.encode(msg.sender, seq, _message);
+        sendMessage(_dstContract, _dstChainId, message, msg.value);
+        sendSeq[_dstChainId][_dstContract] += 1;
+    }
+
+    // called by MessageBus on destination chain to receive message
+    function executeMessage(
+        address _srcContract,
+        uint64 _srcChainId,
+        bytes calldata _message,
+        address // executor
+    ) external payable override onlyMessageBus returns (ExecutionStatus) {
+        (address sender, uint64 seq, bytes memory message) = abi.decode(
+            (_message),
+            (address, uint64, bytes)
+        );
+        uint64 expectedSeq = recvSeq[_srcChainId][_srcContract];
+        if (seq != expectedSeq) {
+            // sequence number not expected, let executor retry.
+            // Note: cannot revert here, because once a message execute tx is 
+            // reverted, it cannot be retried later.
+            return ExecutionStatus.Retry;
+        }
+        emit MessageReceived(_srcContract, _srcChainId, sender, seq, message);
+        recvSeq[_srcChainId][_srcContract] += 1;
+        return ExecutionStatus.Success;
+    }
+}
+</code></pre>
+<p>{% endcode %}</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="batch-transfer"><a class="header" href="#batch-transfer">Batch Transfer</a></h1>
+<p>Here is an example app that sends tokens from one sender at the source chain to multiple receivers at the destination chain through a single cross-chain token transfer. </p>
+<p><a href="https://github.com/celer-network/sgn-v2-contracts/blob/main/contracts/message/apps/examples/BatchTransfer.sol">Source code at GitHub</a>. The high-level workflow consists of three steps:</p>
+<ol>
+<li>The sender calls <code>batchTransfer</code> at the source chain, which internally calls app framework’s <code>sendMessageWithTransfer</code> to send tokens and a message specifying a list of &lt;receivers,  amounts&gt; to the app contract at the destination chain.</li>
+<li>The receiver side implements the <code>executeMessageWithTransfer</code> interface to handle the batch transfer message, and distribute received tokens according to the message content. It also internally calls <code>sendMessage</code> to send a receipt back to the source chain app contract.</li>
+<li>The sender side implements the <code>executeMessage</code> interface to handle the receipt message.</li>
+</ol>
+<p>{% code lineNumbers=“true” %}</p>
+<pre><code class="language-solidity">contract BatchTransfer is MessageApp {
+    using SafeERC20 for IERC20;
+
+    struct TransferRequest {
+        uint64 nonce;
+        address[] accounts;
+        uint256[] amounts;
+        address sender;
+    }
+
+    enum TransferStatus {
+        Null,
+        Success,
+        Fail
+    }
+
+    struct TransferReceipt {
+        uint64 nonce;
+        TransferStatus status;
+    }
+
+    constructor(address _messageBus) MessageApp(_messageBus) {}
+
+    // ============== functions and states on source chain ==============
+
+    uint64 nonce;
+
+    struct BatchTransferStatus {
+        bytes32 h; // hash(receiver, dstChainId)
+        TransferStatus status;
+    }
+    // nonce -&gt; BatchTransferStatus
+    mapping(uint64 =&gt; BatchTransferStatus) public status;
+
+    modifier onlyEOA() {
+        require(msg.sender == tx.origin, "Not EOA");
+        _;
+    }
+
+    // called by sender on source chain to send tokens to a list of
+    // &lt;_accounts, _amounts&gt; on the destination chain
+    function batchTransfer(
+        address _dstContract, // BatchTransfer contract address at the dst chain
+        address _token,
+        uint256 _amount,
+        uint64 _dstChainId,
+        uint32 _maxSlippage,
+        MsgDataTypes.BridgeSendType _bridgeSendType,
+        address[] calldata _accounts,
+        uint256[] calldata _amounts
+    ) external payable onlyEOA {
+        uint256 totalAmt;
+        for (uint256 i = 0; i &lt; _amounts.length; i++) {
+            totalAmt += _amounts[i];
+        }
+        uint256 minRecv = _amount - (_amount * _maxSlippage) / 1e6;
+        require(minRecv &gt; totalAmt, "invalid maxSlippage");
+        nonce += 1;
+        status[nonce] = BatchTransferStatus({
+            h: keccak256(abi.encodePacked(_dstContract, _dstChainId)),
+            status: TransferStatus.Null
+        });
+        IERC20(_token).safeTransferFrom(msg.sender, address(this), _amount);
+        bytes memory message = abi.encode(
+            TransferRequest({
+                nonce: nonce,
+                accounts: _accounts,
+                amounts: _amounts,
+                sender: msg.sender
+            })
+        );
+        // send token and message to the destination chain
+        sendMessageWithTransfer(
+            _dstContract,
+            _token,
+            _amount,
+            _dstChainId,
+            nonce,
+            _maxSlippage,
+            message,
+            _bridgeSendType,
+            msg.value
+        );
+    }
+
+    // called by MessageBus on the source chain to handle token transfer failures 
+    // (e.g., due to bad slippage).
+    // the associated token transfer is guaranteed to have already been refunded
+    function executeMessageWithTransferRefund(
+        address _token,
+        uint256 _amount,
+        bytes calldata _message,
+        address // executor
+    ) external payable override onlyMessageBus returns (ExecutionStatus) {
+        TransferRequest memory transfer = abi.decode(
+            (_message),
+            (TransferRequest)
+        );
+        IERC20(_token).safeTransfer(transfer.sender, _amount);
+        return ExecutionStatus.Success;
+    }
+
+    // called by MessageBus on the source chain to receive receipts
+    function executeMessage(
+        address _sender,
+        uint64 _srcChainId,
+        bytes memory _message,
+        address // executor
+    ) external payable override onlyMessageBus returns (ExecutionStatus) {
+        TransferReceipt memory receipt = abi.decode(
+            (_message),
+            (TransferReceipt)
+        );
+        require(
+            status[receipt.nonce].h ==
+                keccak256(abi.encodePacked(_sender, _srcChainId)),
+            "invalid message"
+        );
+        status[receipt.nonce].status = receipt.status;
+        return ExecutionStatus.Success;
+    }
+
+    // ============== functions on destination chain ==============
+    
+    // called by MessageBus on destination chain to handle batchTransfer message by
+    // distributing tokens to receivers and sending receipt.
+    // the lump sum token transfer associated with the message is guaranteed to have 
+    // already been received.
+    function executeMessageWithTransfer(
+        address _srcContract,
+        address _token,
+        uint256 _amount,
+        uint64 _srcChainId,
+        bytes memory _message,
+        address // executor
+    ) external payable override onlyMessageBus returns (ExecutionStatus) {
+        TransferRequest memory transfer = abi.decode(
+            (_message),
+            (TransferRequest)
+        );
+        uint256 totalAmt;
+        for (uint256 i = 0; i &lt; transfer.accounts.length; i++) {
+            IERC20(_token).safeTransfer(
+                transfer.accounts[i],
+                transfer.amounts[i]
+            );
+            totalAmt += transfer.amounts[i];
+        }
+        uint256 remainder = _amount - totalAmt;
+        if (_amount &gt; totalAmt) {
+            // transfer the remainder of the money to the sender as a fee for 
+            // executing this transfer
+            IERC20(_token).safeTransfer(transfer.sender, remainder);
+        }
+        bytes memory message = abi.encode(
+            TransferReceipt({
+                nonce: transfer.nonce,
+                status: TransferStatus.Success
+            })
+        );
+        // send receipt back to the source chain contract
+        sendMessage(_srcContract, _srcChainId, message, msg.value);
+        return ExecutionStatus.Success;
+    }
+
+    // called by MessageBus if handleMessageWithTransfer above got reverted
+    function executeMessageWithTransferFallback(
+        address _srcContract,
+        address _token,
+        uint256 _amount,
+        uint64 _srcChainId,
+        bytes memory _message,
+        address // executor
+    ) external payable override onlyMessageBus returns (ExecutionStatus) {
+        TransferRequest memory transfer = abi.decode(
+            (_message),
+            (TransferRequest)
+        );
+        IERC20(_token).safeTransfer(transfer.sender, _amount);
+        bytes memory message = abi.encode(
+            TransferReceipt({
+                nonce: transfer.nonce,
+                status: TransferStatus.Fail
+            })
+        );
+        // send receipt back to the source chain contract
+        sendMessage(_srcContract, _srcChainId, message, msg.value);
+        return ExecutionStatus.Success;
+    }
+}
+</code></pre>
+<p>{% endcode %}</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="cross-chain-swap"><a class="header" href="#cross-chain-swap">Cross-Chain Swap</a></h1>
+<p>Here is an example app that allows swapping one token on chain1 to another token on chain2 through cBridge and DEXes on both chain1 and chain2.</p>
+<p><a href="https://github.com/celer-network/sgn-v2-contracts/blob/main/contracts/message/apps/examples/TransferSwap.sol">Source code on GitHub</a>.</p>
+<p>For the simplicity of explanation, let’s say we deploy this contract on chain1 and chain2, and we want to input tokenA on chain1 and gain tokenC on chain2.</p>
+<p>Public functions <code>transferWithSwap</code> and <code>transferWithSwapNative</code> are called by a user to initiate the entire process. These functions takes in a <code>SwapInfo</code> struct that specifies the behavior or “route” of the execution, and execute the process in the following fashion:</p>
+<ol>
+<li>Swap tokenA on the source chain to gain tokenB</li>
+<li>Packages a <code>SwapRequest</code> as a “message”, which indicates the swap behavior on chain2</li>
+<li><code>sendMessageWithTransfer</code> is then called internally to send the message along with the tokenB through the bridge to chain2</li>
+<li>On chain2, <code>executeMessageWithTransfer</code> is automatically called when the bridge determines that the execution conditions are met.</li>
+<li>This contract parses the message received to a <code>SwapRequest</code> struct, then executes the swap using the tokenB received to gain tokenC. (Note: when <code>executeMessageWithTransfer</code> is called, it is guaranteed that tokenB already arrives at the TransferSwap contract address on chain2. You can check out this part of verification logic in MessageBusReceiver.sol’s <code>executeMessageWithTransfer</code>).</li>
+<li>If the execution of <code>executeMessageWithTransfer</code> of TransferSwap contract on chain2 reverts, or if the <code>executeMessageWithTransfer</code> call returns <code>false</code>, then MessageBus would call <code>executeMessageWithTransferFallback</code>. This is the place where you implement logic to decide what to do with the received tokenB.</li>
+</ol>
+<p>The following is a more graphical explanation of all the supported flows of this demo app:</p>
+<pre><code>1. swap bridge swap
+
+|--------chain1--------|-----SGN-----|---------chain2--------|
+tokenA -&gt; swap -&gt; tokenB -&gt; bridge -&gt; tokenB -&gt; swap -&gt; tokenC -&gt; out
+
+2. swap bridge
+
+|--------chain1--------|-----SGN-----|---------chain2--------|
+tokenA -&gt; swap -&gt; tokenB -&gt; bridge -&gt; tokenB -&gt; out
+
+3. bridge swap
+
+|--------chain1--------|-----SGN-----|---------chain2--------|
+                  tokenA -&gt; bridge -&gt; tokenA -&gt; swap -&gt; tokenB -&gt; out
+
+4. just swap
+
+|--------chain1--------|
+tokenA -&gt; swap -&gt; tokenB -&gt; out
+</code></pre>
+<h4 id=""><a class="header" href="#"></a></h4>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="nft-bridge"><a class="header" href="#nft-bridge">NFT Bridge</a></h1>
+<p>Here is the contract for an NFT bridge running in production. <a href="https://github.com/celer-network/sgn-v2-contracts/blob/main/contracts/message/apps/nft-bridge/NFTBridge.sol">Source code on GitHub</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="dapp-safeguard"><a class="header" href="#dapp-safeguard">dApp Safeguard</a></h1>
+<h2 id="app-guardian"><a class="header" href="#app-guardian">App Guardian</a></h2>
+<p><a href="https://github.com/celer-network/im-guardian">Celer IM app guardian</a> is run by the dApp community to ensure their application security.</p>
+<p>The app guardian monitors the <a href="https://github.com/celer-network/sgn-v2-contracts/blob/main/contracts/message/messagebus/MessageBusReceiver.sol#L28-L35">message <code>Executed</code> events</a> emitted from the <code>MessageBus</code> contracts on the destination chains, and uses the <code>srcChainId</code> and <code>srcTxHash</code> fields in the event to look for the matched <a href="https://github.com/celer-network/sgn-v2-contracts/blob/main/contracts/message/messagebus/MessageBusSender.sol#L15"><code>Message</code> events</a> from the <code>MessageBus</code> contracts on the source chains. If it fails to find a matched event on the source chain, it will try to <a href="https://github.com/celer-network/im-guardian/blob/main/guardian/message.go#L35-L39">pause the message receiver (dApp) contracts</a> or execute any dApp-specific logic if added.</p>
+<p>Note that Celer IM is already secured by the Celer State Guardian Network (SGN), which is a proven secure decentralized platform that has processed a <a href="https://cbridge-analytics.celer.network/">large volume</a> of cross-chain asset transfers and tons of cross-chain messages without any security incident. This app guardian is for dApp communities who do not fully trust Celer SGN and want further safety guarantees even if Celer IM is compromised.</p>
+<h2 id="delayed-message-execution"><a class="header" href="#delayed-message-execution">Delayed Message Execution</a></h2>
+<p>Message dApps that require extra safeguards can choose to integrate the app contract with the <a href="https://github.com/celer-network/sgn-v2-contracts/blob/main/contracts/message/apps/adapter/MessageReceiverAdapter.sol">MessageReceiverAdapter</a>, which allows configured delayed message execution.</p>
+<p>Integration with the adapter is simple: 1) deploy a separate adapter contract for your dApp; 2) set the <a href="https://github.com/celer-network/sgn-v2-contracts/blob/main/contracts/message/apps/adapter/MessageReceiverAdapter.sol#L64">allowed senders</a> to restrict who can send messages to the dApp; and 3) enforce your dApp message receiver function to only accept <a href="https://github.com/celer-network/sgn-v2-contracts/blob/main/contracts/message/apps/adapter/MessageReceiverAdapter.sol#L57-L60">external calls</a> from this adapter.</p>
+<p>For each delayed message, the <a href="https://github.com/celer-network/im-executor">message executor</a> (detailed in the next section) will wait for the delay period to pass and then automatically <a href="https://github.com/celer-network/sgn-v2-contracts/blob/main/contracts/message/apps/adapter/MessageReceiverAdapter.sol#L40">execute the delayed messages</a> which trigger calls to the receiver dApp contract.</p>
+<p>The <a href="https://github.com/celer-network/im-guardian">app guardian</a> described above keeps monitoring and verifying the messages as soon as they enter the delayed queue, and will pause the adapter contract immediately if any invalid message is detected during the delay period, so that no invalid message will be executed in the receiver dApp contract. </p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="message-executor"><a class="header" href="#message-executor">Message Executor</a></h1>
+<p><a href="https://github.com/celer-network/im-executor">The executor</a> monitors the Celer SGN for messages ready to be submitted (with enough validator signatures) and submits the <a href="https://github.com/celer-network/sgn-v2-contracts/blob/1c65d5538ff8509c7e2626bb1a857683db775231/contracts/message/interfaces/IMessageBus.sol#L50-L98">message execution transactions</a> to the <a href="https://github.com/celer-network/sgn-v2-contracts/blob/main/contracts/message/messagebus/MessageBusReceiver.sol">MessageBus </a>contract.</p>
+<p><strong>In most cases, we recommend dApp developers use the shared executor services provided by the Celer Network team</strong> so that the developers do not need to worry about the executor server configuration and operation. </p>
+<blockquote>
+<p>IMPORTANT: Fill out this form for Celer to set up a hosted executor service for you: <a href="https://form.typeform.com/to/RsiUR9Xz">https://form.typeform.com/to/RsiUR9Xz</a></p>
+</blockquote>
+<p><strong>If you choose to run your own executors</strong>, please refer to the integration guides in the following sections You can also find the config handbook of the message executor in the <a href="https://github.com/celer-network/sgn-v2-networks/tree/main/executor">GitHub Readme</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="integration-guide"><a class="header" href="#integration-guide">Integration Guide</a></h1>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>This tutorial shows how to run the <a href="#batch-transfer">cross-chain batch transfer app</a> with your own executor. As an overview, our app does the following things:</p>
+<ol>
+<li>User calls <a href="https://github.com/celer-network/sgn-v2-contracts/blob/e728cfc477/contracts/message/apps/examples/BatchTransfer.sol#L48"><code>batchTransfer</code></a> on the source chain Goerli Testnet, which triggers the sending of tokens along with a message through the Celer IM infrastructure</li>
+<li>Executor polls Celer’s SGN and submits SGN-signed messages to the <code>MessageBus</code> contract on the destination chain BSC Testnet.</li>
+<li><code>BatchTransfer</code> contract on BSC Testnet receives the message and distributes the fund to the receivers specified in the message</li>
+</ol>
+<p>Following this tutorial, you will need to deploy <code>BatchTransfer</code> contracts on Goerli and BSC Testnets, and an Executor node for this test dApp.</p>
+<h3 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h3>
+<ol>
+<li>Solidity Knowledge</li>
+<li>Wallet</li>
+<li>Node.js 12 installed</li>
+<li>Typescript installed</li>
+<li>Experience with basic Unix commands</li>
+</ol>
+<h2 id="contract"><a class="header" href="#contract">Contract</a></h2>
+<p>This tutorial uses <a href="https://hardhat.org/">Hardhat</a> to deploy and verify the contract.</p>
+<h3 id="preparation"><a class="header" href="#preparation">Preparation</a></h3>
+<h4 id="download-message-app-examples"><a class="header" href="#download-message-app-examples">Download message-app-examples</a></h4>
+<pre><code>git clone https://github.com/celer-network/message-app-examples.git
+</code></pre>
+<h4 id="get-the-dependencies"><a class="header" href="#get-the-dependencies">Get the dependencies</a></h4>
+<pre><code>cd message-app-examples
+yarn install
+</code></pre>
+<h3 id="deploy-the-contract"><a class="header" href="#deploy-the-contract">Deploy the Contract</a></h3>
+<p>We are going to deploy <a href="https://im-docs.celer.network/developer/development-guide/contract-examples/hello-world">MsgExampleBasic</a> on goerli and bsc testnet. </p>
+<p>Modify the config file <code>.env</code>. Set up your account’s private key at <code>DEFAULT_PRIVATE_KEY</code>.</p>
+<p>Deploy the contracts and remember to record the addresses of the deployed contracts as we will need them in the next step</p>
+<pre><code class="language-shell"># set MESSAGE_BUS_ADDR in .env to 0xF25170F86E4291a99a9A560032Fe9948b8BcFBB2
+npx hardhat deploy --network goerli --tags MsgExampleBasic
+# reset MESSAGE_BUS_ADDR to 0xAd204986D6cB67A5Bc76a3CB8974823F43Cb9AAA
+npx hardhat deploy --network bscTest --tags MsgExampleBasic
+</code></pre>
+<h3 id="verify-the-contracts"><a class="header" href="#verify-the-contracts">Verify the Contracts</a></h3>
+<p>You should now have the contract addresses on both networks. </p>
+<p>Now run the <code>hardhat verify</code> tasks. Note the last param is our contract’s constructor param used when deploying the contract, which is the address of the message bus.</p>
+<pre><code class="language-shell">npx hardhat verify --network goerli &lt;your-deployed-address-on-goerli&gt; 0xF25170F86E4291a99a9A560032Fe9948b8BcFBB2
+npx hardhat verify --network bscTest &lt;your-deployed-address-on-bsc&gt; 0xAd204986D6cB67A5Bc76a3CB8974823F43Cb9AAA
+</code></pre>
+<p>Woot, that’s quite some work, if everything went right, you should be able to see your contracts on <a href="https://goerli.etherscan.io/">GoerliScan</a> and <a href="https://testnet.bscscan.com/">BscScan</a>. Now we are just one component short of making an inter-chain app. Let’s look into how to deploy the executor in the next section.</p>
+<h2 id="executor"><a class="header" href="#executor">Executor</a></h2>
+<p>In this section, we will learn what the executor is and how it should be configured and deployed</p>
+<p>The executor is a simple program:  it polls SGN for available messages sent by the <code>BatchTransfer</code> contract and calls <code>MessageBus</code> on the destination chain which in turn calls our BatchTransfer’s <code>executeMessageWithTransfer</code> on the destination chain.</p>
+<blockquote>
+<p>Note: “available messages” are messages that </p>
+<ol>
+<li>have been verified by enough SGN validators</li>
+<li>have their corresponding token transfer verified</li>
+</ol>
+</blockquote>
+<p>In addition, the executor also doesn’t submit the message until the transfer associated with the message is executed on-chain.</p>
+<p>Now let’s start deploying the executor for our app.</p>
+<h3 id="preparation-1"><a class="header" href="#preparation-1">Preparation</a></h3>
+<p>Let’s create a home folder for the executor first, this is where the config files will live</p>
+<pre><code class="language-shell">mkdir ~/.executor
+</code></pre>
+<p>Download the executor binary from <a href="https://github.com/celer-network/sgn-v2-networks/tree/main/binaries">this repo</a>, or use <code>curl</code></p>
+<pre><code class="language-bash"># Linux amd64
+curl -L https://github.com/celer-network/sgn-v2-networks/raw/main/binaries/executor-&lt;latest-version&gt;-linux-amd64.tar.gz -o executor.tar.gz
+# Linux arm64
+curl -L https://github.com/celer-network/sgn-v2-networks/raw/main/binaries/executor-&lt;latest-version&gt;-linux-arm64.tar.gz -o executor.tar.gz
+# MacOS Intel chip
+curl -L https://github.com/celer-network/sgn-v2-networks/raw/main/binaries/executor-&lt;latest-version&gt;-darwin-amd64.tar.gz -o executor.tar.gz
+# MacOS Apple chip
+curl -L https://github.com/celer-network/sgn-v2-networks/raw/main/binaries/executor-&lt;latest-version&gt;-darwin-arm64.tar.gz -o executor.tar.gz
+</code></pre>
+<p>Unzip it and move it to a directory on <code>$PATH</code>. We will use <code>/usr/local/bin</code></p>
+<pre><code class="language-shell">tar -xvf executor.tar.gz &amp;&amp; rm executor.tar.gz
+mv executor-* /usr/local/bin/executor # may need sudo, or change this to your preferred location
+</code></pre>
+<p>Make sure the binary runs</p>
+<pre><code class="language-shell"># shell
+executor start
+# output
+2022-04-20 17:19:23.126 |INFO | root.go:49: Reading executor configs
+2022-04-20 17:19:23.127 |INFO | start.go:48: Starting executor
+...
+</code></pre>
+<p>It won’t actually run since we haven’t setup any configs yet, but good to know it at least starts. If it doesn’t, make sure you got the right distribution for your system arch.</p>
+<h3 id="database-setup"><a class="header" href="#database-setup">Database Setup</a></h3>
+<p>Since the executor monitors on-chain events and keeps track of message execution, we’ll need a database. In theory, the executor supports any databases that support any Postgresql dialect database, but it’s only tested with CockroachDB for now</p>
+<h4 id="installation"><a class="header" href="#installation">Installation</a></h4>
+<p>You can visit their <a href="https://www.cockroachlabs.com/docs/v21.2/install-cockroachdb-linux">website</a> for more detailed instructions. Below is an example for running CockroachDB on macOS via Homebrew</p>
+<pre><code class="language-shell">brew install cockroachdb/tap/cockroach
+</code></pre>
+<h4 id="start-db-instance"><a class="header" href="#start-db-instance">Start DB Instance</a></h4>
+<p>Start a single node instance in the background</p>
+<pre><code class="language-shell">cockroach start-single-node --store="$HOME/.crdb-node0" --listen-addr=localhost:26257 --http-addr=localhost:38080 --background --insecure
+</code></pre>
+<p>Test connection</p>
+<pre><code class="language-shell">cockroach sql --insecure
+</code></pre>
+<p>If you see this prompt then everything is right</p>
+<pre><code class="language-shell"># Welcome to the CockroachDB SQL shell.
+# All statements must be terminated by a semicolon.
+# To exit, type: \q.
+#
+# Server version: CockroachDB CCL v21.2.3 (x86_64-apple-darwin19, built 2021/12/14 15:26:20, go1.16.6) (same version as client)
+# Cluster ID: 67881086-b544-4159-803f-2f7b952e1436
+#
+# Enter \? for a brief introduction.
+#
+root@:26257/defaultdb&gt;
+</code></pre>
+<p>I know that’s a lot of steps … but thankfully that’s all for the database. We are almost done here, just a little more configs, then we are off!</p>
+<h3 id="configurations"><a class="header" href="#configurations">Configurations</a></h3>
+<p>The config is simple, you only need two config files and an ETH keystore file.</p>
+<p>First, let’s create the folders and files in the executor home</p>
+<pre><code class="language-shell">.executor/
+  - config/
+      - executor.toml
+      - cbridge.toml
+  - eth-ks/
+      - signer.json
+</code></pre>
+<p>Now we have the files in place, let’s take a look at each individual file and what they do.</p>
+<h4 id="signerjson"><a class="header" href="#signerjson">signer.json</a></h4>
+<p>Since the job of the executor is to submit messages on-chain, a signer keystore is required. Eventually, you may want to delegate the gas cost of the transactions the executor makes to your users, but that’s outside of the scope of this tutorial. We will discuss this topic in later chapters.</p>
+<h4 id="executortoml"><a class="header" href="#executortoml">executor.toml</a></h4>
+<p>This config file houses information about app contract, connectivity, and keystore location. A standard <code>executor.toml</code> looks like this. Remember to fill in the contract addresses and the keystore passphrase.</p>
+<pre><code class="language-toml"># since we don't want the executor to execute messages that are not sent by our
+# BatchTransfer contract, the following items are added to filter only
+# the ones we care about
+[[service]]
+# Fully qualified absolute path only, "~" would not work
+signer_keystore = "/Users/patrickmao/.executor/eth-ks/signer.json"
+signer_passphrase = "&lt;your-keystore-passphrase&gt;"
+[[service.contracts]]
+chain_id = 5 # Goerli
+address = "&lt;BatchTransfer-address&gt;"
+allow_sender_groups = ["batch-transfer"]
+[[service.contracts]]
+chain_id = 97 # Bsc testnet
+address = "&lt;BatchTransfer-address&gt;"
+allow_sender_groups = ["batch-transfer"]
+[[service.contract_sender_groups]]
+# the name/ID of the group. service.contracts refer to a sender group in allow_sender_groups
+name = "batch-transfer" 
+allow = [
+  # allow and execute messages originated from &lt;BatchTransfer-address&gt; on chain 1
+  { chain_id = 5, address = "&lt;BatchTransfer-address&gt;" },
+  # allow and execute messages originated from &lt;BatchTransfer-address&gt; on chain 56
+  { chain_id = 97, address = "&lt;BatchTransfer-address&gt;" },
+]
+
+[sgnd]
+# SGN testnet node0 grpc. executor reads available messages from this endpoint
+sgn_grpc = "cbridge-v2-test.celer.network:9094" 
+# SGN testnet gateway grpc. all tx operations to the SGN is delegated through it
+gateway_grpc = "cbridge-v2-test.celer.network:9094" 
+
+[db]
+url = "localhost:26257"
+</code></pre>
+<h4 id="cbridgetoml"><a class="header" href="#cbridgetoml">cbridge.toml</a></h4>
+<p>Executor relies on multiple on-chain events to do its job. This config file is where we configure on-chain event monitoring behaviors. The only things we need to care about for now is the address of the contracts and RPC endpoint URLs</p>
+<pre><code class="language-toml">[[multichain]]
+chainID = 5
+name = "Goerli"
+gateway = "&lt;your-goerli-rpc&gt;" # fill in your Goerli rpc provider url
+# cBridge (liquidity bridge) contract address. Executor relies on events from this
+# contract to double check and make sure funds are transfered to the destination
+# before it attempts messages on the destination chain
+cbridge = "&lt;copy-addr-from-'Contract Addresses &amp; RPC Info'&gt;"
+# MessageBus contract address. Executor relies this to keep a message execution
+# history (just so you can debug or help out angry customers).
+msgbus = "&lt;copy-addr-from-'Contract Addresses &amp; RPC Info'&gt;"
+blkinterval = 15 # polling interval
+blkdelay = 5 # how many blocks confirmations are required
+maxblkdelta = 5000 # max number of blocks per poll request
+
+[[multichain]]
+chainID = 97
+name = "BSC Testnet"
+gateway = "https://data-seed-prebsc-2-s3.binance.org:8545/"
+cbridge = "&lt;copy-addr-from-'Contract Addresses &amp; RPC Info'&gt;"
+msgbus = "&lt;copy-addr-from-'Contract Addresses &amp; RPC Info'&gt;"
+blkinterval = 3
+blkdelay = 8
+maxblkdelta = 5000
+# on some EVM chains the gas estimation can be off. the below fields 
+# are added to make up for the inconsistancies.
+addgasgwei = 2 # add 2 gwei to gas price
+addgasestimateratio = 0.3 # multiply gas limit by this ratio
+</code></pre>
+<h3 id="running-the-executor"><a class="header" href="#running-the-executor">Running the Executor</a></h3>
+<p>Now with the configs and database out of the way, running the executor is as simple as a line of command (we’ll discuss more reliable deployment methods in <a href="#integration-guide-advanced">Integration Tutorial: Advanced</a>)</p>
+<pre><code class="language-shell">executor start --loglevel debug --home $HOME/.executor
+</code></pre>
+<blockquote>
+<p>Sometimes executor start might fail because of failures to dial either SGN node or SGN gateway gRPC. It’s probably because we are deploying something. Just wait a while and it’ll most likely resolve.</p>
+</blockquote>
+<p>That’s it, the entire app stack is fully functional now. We’ve come a long way, and now is the moment of truth, will it work or not? </p>
+<h2 id="testing-the-app"><a class="header" href="#testing-the-app">Testing the App</a></h2>
+<p>For testing, we are using test CELR on Goerli. Please add it to your wallet <code>0x5d3c0f4ca5ee99f8e8f59ff9a5fab04f6a7e007f</code></p>
+<h4 id="send-the-request"><a class="header" href="#send-the-request">Send the Request</a></h4>
+<p>Now we are ready to call our MsgExampleBasic contract on Goerli to initiate the whole cross-chain batch transfer process.</p>
+<p>Note: the first param payable amount is the fee for this cross-chain transaction, we are omitting this for now.</p>
+<pre><code class="language-shell">_dstContract &lt;MsgExampleBasic-address-on-bsc&gt;
+_dstChainId 97
+_message 0x1234
+</code></pre>
+<p>After calling the contract, it may take around 30 ~ 120 seconds or so for SGN to monitor, verify and sign the transfer and the message. The executor will automatically pick up the message. The logs should look like this</p>
+<pre><code class="language-shell">│2022-04-27 01:19:42.781 |INFO | executor.go:542: executed xferMsg (id f66aec9401cbc77b525eafccaec49b6f4fe1a0af10c2c26858ee6d47c7628ef0): txhash 2c7fdaa4052af312119553bbae56d47322b981859254fb013afb29a3a40e19e2                                                                                  │
+</code></pre>
+<h2 id="next-advanced-topics"><a class="header" href="#next-advanced-topics">Next: Advanced Topics</a></h2>
+<p>To make the BatchTransfer App more production-ready, there are some advanced functionalities that need to be added, which are covered in the <a href="#integration-guide-advanced">Integration Guide: Advanced</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="integration-guide-advanced"><a class="header" href="#integration-guide-advanced">Integration Guide: Advanced</a></h1>
+<p>In the <a href="#integration-guide">basic guide</a> from the previous section, we walked through a minimal implementation of a cross-chain app. In this guide, we are going to discuss the following topics to make the <a href="https://github.com/celer-network/sgn-v2-contracts/blob/ed81198f85/contracts/message/apps/examples/BatchTransfer.sol">BatchTransfer</a> inter-chain dApp more production ready. The goal is to get you on board with the patterns involved in deploying a robust service on top of the Celer IM infrastructure.</p>
+<ul>
+<li>Enhance security through executor’s “sender groups” config</li>
+<li>Dealing with bridge failures (refunds)</li>
+<li>Chaining messages</li>
+<li>Configuring a retry back-off strategy</li>
+</ul>
+<h3 id="enhance-security-through-executors-sender-groups-config"><a class="header" href="#enhance-security-through-executors-sender-groups-config">Enhance security through executor’s “sender groups” config</a></h3>
+<p>Under the current IM architecture, any contract can send messages to any other contracts. This means that a malicious party can forge messages that conform to your contract’s message data type, send them to your contract, and exhaust your executor’s gas fund. Thus, in production, it is important that the executor checks where a message originated from. Sender groups are designed just for that.</p>
+<p>If you have experience with cloud services such as AWS, your might recognize that a sender group is pretty much a “security group”.</p>
+<p>An example sender group looks like this</p>
+<pre><code class="language-toml">[[service.contract_sender_groups]]
+# the name/ID of the group. service.contracts refer to a sender group in allow_sender_groups
+name = "your-sender-group" 
+allow = [
+  # allow and execute messages originated from &lt;app-contract-address&gt; on chain 1
+  { chain_id = 5, address = "&lt;app-contract-address&gt;" },
+  # allow and execute messages originated from &lt;app-contract-address&gt; on chain 56
+  { chain_id = 97, address = "&lt;app-contract-address&gt;" },
+]
+</code></pre>
+<p>After defining the security groups, we need to mount it to individual contract configs</p>
+<pre><code class="language-toml">[[service]]
+[[service.contracts]]
+chain_id = 5
+address = "&lt;app-contract-address&gt;"
+allow_sender_groups = ["your-sender-group"]
+[[service.contracts]]
+chain_id = 97
+address = "&lt;app-contract-address&gt;"
+allow_sender_groups = ["your-sender-group"]
+</code></pre>
+<h3 id="dealing-with-bridge-failures"><a class="header" href="#dealing-with-bridge-failures">Dealing with Bridge Failures</a></h3>
+<h4 id="contract-changes"><a class="header" href="#contract-changes">Contract Changes</a></h4>
+<p>It is possible that bridging would fail when the user calls <code>batchTransfer</code> due to high slippage, not enough liquidity, etc. In These cases, the executor automatically prepares a refund and executes it on the source chain. In order for this to work, the BatchTransfer contract on the source chain needs to implement <a href="https://github.com/celer-network/sgn-v2-contracts/blob/ed81198f85/contracts/message/apps/examples/BatchTransfer.sol#L88-L99"><code>executeMessageWithTransferRefund</code></a>.</p>
+<p>Note that this function is called with the original _message we encoded and sent out. And the funds are guaranteed to arrive before it is called.</p>
+<h4 id="executor-changes"><a class="header" href="#executor-changes">Executor Changes</a></h4>
+<p>The executor has an option that needs to be explicitly turned on to enable auto refund for bridge failures. </p>
+<pre><code class="language-toml"># executor.toml
+[executor]
+enable_auto_refund = true
+</code></pre>
+<h3 id="chaining-messages"><a class="header" href="#chaining-messages">Chaining Messages</a></h3>
+<p>You may want to “chain” or “nest” a message in <code>executeMessageWithTransfer</code> on the destination chain. Since the <code>executeMessageWithTransfer</code> interface is payable, this usage is supported.</p>
+<p>In the BatchTransfer contract, <a href="https://github.com/celer-network/sgn-v2-contracts/blob/ed81198f85/contracts/message/apps/examples/BatchTransfer.sol#L138-L140">a “receipt” message is chained inside</a>. </p>
+<p>Now we need to configure the executor to add a payable value when calling <code>executeMessageWithTransfer</code> to cover the fee introduced by chaining the additional message.</p>
+<pre><code class="language-toml">[service]
+[[service.contracts]]
+chain_id = 5                                           # Goerli
+address = "0x09E4534B11D400BFcd2026b69E399763CeAfB42D"
+add_payable_value_for_execution = 20000000000 # &lt;-- add this line, amount in wei
+[[service.contracts]]
+chain_id = 97                                          # Bsc testnet
+address = "0x570F9c2f224b002d75F287f5430Bc9598E850E13"
+add_payable_value_for_execution = 20000000000 # &lt;-- add this line, amount in wei
+</code></pre>
+<p>But how do we know how much fee is needed? This is the tricky part since we can only estimate the amount of fee our <code>sendMessage</code>call is incurring. Let’s take a look at how the message fee is calculated in the MessageBus contract: </p>
+<pre><code class="language-solidity">uint256 public feeBase;
+uint256 public feePerByte;
+
+function calcFee(bytes calldata _message) public view returns (uint256) {
+    return feeBase + _message.length * feePerByte;
+}
+</code></pre>
+<p>You can query the MessageBus contract on a chain for these parameters. If you use <code>abi.encode</code> to encode your message, the message length is likely fixed. If you happen to have variable length fields in your message, you should add a safe margin to the <code>add_payable_value_for_execution</code> to reduce the chance of having message execution reverted.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="query-im-tx-status"><a class="header" href="#query-im-tx-status">Query IM Tx Status</a></h1>
+<h2 id="get-tx-status-from-celerim-system"><a class="header" href="#get-tx-status-from-celerim-system">Get Tx status from CelerIM system</a></h2>
+<p><mark style="color:blue;"><code>GET</code></mark> <code>https://api.celerscan.com/scan/searchByTxHash</code></p>
+<p><a href="https://api.celerscan.com/scan/searchByTxHash?tx=0x0ce600fd60a7b5b3c1a3d02c7a73339261dae97d3e7785090cf8da92e657b674">https://api.celerscan.com/scan/searchByTxHash?tx=0x0ce600fd60a7b5b3c1a3d02c7a73339261dae97d3e7785090cf8da92e657b674</a></p>
+<h4 id="query-parameters"><a class="header" href="#query-parameters">Query Parameters</a></h4>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>tx<mark style="color:red;">*</mark></td><td>String</td><td>tx hash of the transaction</td></tr>
+</tbody>
+</table>
+</div>
+<p>{% tabs %}
+{% tab title=“200: OK “ %}</p>
+<pre><code class="language-json">{
+  "err": null,
+  "txSearchInfo": [
+    {
+      "base_info": {
+        "sender": "0x0Acd70f0Ad1C809Cc3B90Dad4a3BC3d1E82c4e47",
+        "receiver": "0x0Acd70f0Ad1C809Cc3B90Dad4a3BC3d1E82c4e47",
+        "src_chain_id": 42161,
+        "src_tx_hash": "0x0ce600fd60a7b5b3c1a3d02c7a73339261dae97d3e7785090cf8da92e657b674",
+        "init_time": "1661849935000",
+        "last_update_time": "1661850036000"
+      },
+      "transfer": [
+        {
+          "xfer_id": "0x9161007dd7064a2f356a377698f7790efc7e93a1cb94016b92f27c0d0e648ed5",
+          "dst_chain_id": 1,
+          "send_amt": "711295513077604900",
+          "received_amt": "691157868117182203",
+          "src_tx_hash": "0x0ce600fd60a7b5b3c1a3d02c7a73339261dae97d3e7785090cf8da92e657b674",
+          "dst_tx_hash": "0x469c084e624c25408c4a8d6c95f862a61ad71182d9b1112bbd6bb1bdd1e34b14",
+          "src_token_addr": "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1",
+          "dst_token_addr": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+          "xfer_status": 3,
+          "bridge_type": 1,
+          "refund_amt": "0",
+          "refund_tx": ""
+        }
+      ],
+      "message": [
+      ]
+    }
+  ]
+}
+</code></pre>
+<p>{% endtab %}
+{% endtabs %}</p>
+<h2 id="request-parameter"><a class="header" href="#request-parameter">Request Parameter</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>tx</td><td>String</td><td>Transaction hash</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="response-parameters"><a class="header" href="#response-parameters">Response Parameters</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>txSearchInfo</td><td>Array&lt;<a href="#undefined">TxSearchInfo</a>&gt;</td><td>All related transactions’ info</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="txsearchinfo"><a class="header" href="#txsearchinfo">TxSearchInfo</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th></th><th></th><th></th></tr>
+</thead>
+<tbody>
+<tr><td>base_info</td><td><a href="#undefined">BaseInfo</a></td><td>Basic information</td></tr>
+<tr><td>transfer</td><td>Array&lt;<a href="#transfer">Transfer</a>&gt;</td><td>Transfers List</td></tr>
+<tr><td>message</td><td>Array&lt;<a href="#undefined">Message</a>&gt;</td><td>Messages List</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="baseinfo"><a class="header" href="#baseinfo">BaseInfo</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>sender</td><td>String</td><td>Sender’s address</td></tr>
+<tr><td>receiver</td><td>String</td><td>Receiver’s address</td></tr>
+<tr><td>src_chain_id</td><td>UInt32</td><td>Source chain id</td></tr>
+<tr><td>src_tx_hash</td><td>String</td><td>Source chain transaction hash</td></tr>
+<tr><td>init_time</td><td>UInt64</td><td>Initial timestamp</td></tr>
+<tr><td>last_update_time</td><td>UInt64</td><td>Lastest information update timestamp</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="transfer"><a class="header" href="#transfer">Transfer</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>xfer_id</td><td>String</td><td>cBridge transfer id</td></tr>
+<tr><td>dst_chain_id</td><td>UInt32</td><td>Destination chain id</td></tr>
+<tr><td>send_amt</td><td>String</td><td>Source chain send amount</td></tr>
+<tr><td>received_amt</td><td>String</td><td>Destination chain receiving amount</td></tr>
+<tr><td>src_tx_hash</td><td>String</td><td>Source chain transaction hash</td></tr>
+<tr><td>dst_tx_hash</td><td>String</td><td>Destination chain transaction hash</td></tr>
+<tr><td>src_token_addr</td><td>String</td><td>Token address on source chain</td></tr>
+<tr><td>dst_token_addr</td><td>String</td><td>Token address on destination chain</td></tr>
+<tr><td>xfer_status</td><td><a href="#undefined">XferStatus</a></td><td>Transfer status</td></tr>
+<tr><td>refund_amt</td><td>String</td><td>Refund token amount on source chain. Refund only</td></tr>
+<tr><td>refund_tx</td><td>String</td><td>Refund transaction hash. Refund only</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="xferstatus"><a class="header" href="#xferstatus">XferStatus</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Value</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>XS_UNKNOWN(0)</td><td>Status placeholder</td></tr>
+<tr><td>XS_WAITING_FOR_SGN_CONFIRMATIONS(1)</td><td>Waiting for Celer SGN confirmation</td></tr>
+<tr><td>XS_WAITING_FOR_FUND_RELEASE(2)</td><td>Waiting for fund release on destination chain</td></tr>
+<tr><td>XS_COMPLETED(3)</td><td>Complete</td></tr>
+<tr><td>XS_TO_BE_REFUND(4)</td><td>Transfer to be refunded</td></tr>
+<tr><td>XS_REFUND_TO_BE_CONFIRMED(5)</td><td>Transfer refund to be confirmed</td></tr>
+<tr><td>XS_REFUNDED(6)</td><td>Transfer refunded</td></tr>
+</tbody>
+</table>
+</div>
+<pre><code>enum XferStatus { 
+  XS_UNKNOWN = 0,
+  XS_WAITING_FOR_SGN_CONFIRMATIONS = 1,
+  XS_WAITING_FOR_FUND_RELEASE = 2,
+  XS_COMPLETED = 3,
+  XS_TO_BE_REFUND = 4,
+  XS_REFUND_TO_BE_CONFIRMED = 5,
+  XS_REFUNDED = 6,
+}
+</code></pre>
+<h3 id="message"><a class="header" href="#message">Message</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>msg_id</td><td>String</td><td>Message id</td></tr>
+<tr><td>dst_chain_id</td><td>UInt32</td><td>Destination chain id</td></tr>
+<tr><td>payload</td><td>String</td><td>payload</td></tr>
+<tr><td>execution_tx</td><td>String</td><td>Execution transaction hash</td></tr>
+<tr><td>msg_fee_gas</td><td>String</td><td>Message fee gas</td></tr>
+<tr><td>msg_fee_volume</td><td>Float</td><td>Message fee in USD value</td></tr>
+<tr><td>msg_status</td><td><a href="#undefined">MsgStatus</a></td><td>Message Status</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="msgstatus"><a class="header" href="#msgstatus">MsgStatus</a></h3>
+<table>
+<thead>
+<tr><th>Value</th><th>Description</th><th data-hidden=""></th></tr>
+</thead>
+<tbody>
+<tr><td>MS_UNKNOWN(0)</td><td>Status placeholder</td><td></td></tr>
+<tr><td>MS_WAITING_FOR_SGN_CONFIRMATIONS(1)</td><td>Waiting for Celer SGN confirmation</td><td></td></tr>
+<tr><td>MS_WAITING_FOR_DESTINATION_EXECUTION(2)</td><td>Waiting for destination chain execution</td><td></td></tr>
+<tr><td>MS_COMPLETED(3)</td><td>Complete</td><td></td></tr>
+</tbody>
+</table>
+
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="contract-addresses--rpc-info"><a class="header" href="#contract-addresses--rpc-info">Contract Addresses &amp; RPC Info</a></h1>
+<h2 id="mainnet"><a class="header" href="#mainnet">Mainnet</a></h2>
+<h3 id="sgngateway-rpc"><a class="header" href="#sgngateway-rpc">SGN/Gateway RPC</a></h3>
+<p><strong>SGN gRPC (TLS)</strong>: cbridge-prod2.celer.app:9094</p>
+<p><strong>Gateway gRPC (TLS)</strong>:  cbridge-prod2.celer.app:9094 (same as SGN gRPC)</p>
+<h3 id="contracts"><a class="header" href="#contracts">Contracts</a></h3>
+<h4 id="ethereum-1"><a class="header" href="#ethereum-1">Ethereum 1</a></h4>
+<p>cBridge: <a href="https://etherscan.io/address/0x5427FEFA711Eff984124bFBB1AB6fbf5E3DA1820">0x5427FEFA711Eff984124bFBB1AB6fbf5E3DA1820</a></p>
+<p>MessageBus: <a href="https://etherscan.io/address/0x4066d196a423b2b3b8b054f4f40efb47a74e200c">0x4066d196a423b2b3b8b054f4f40efb47a74e200c</a></p>
+<h4 id="bnb-chain-56"><a class="header" href="#bnb-chain-56">BNB Chain 56</a></h4>
+<p>cBridge <a href="https://bscscan.com/address/0xdd90E5E87A2081Dcf0391920868eBc2FFB81a1aF">0xdd90E5E87A2081Dcf0391920868eBc2FFB81a1aF</a></p>
+<p>MessageBus: <a href="https://bscscan.com/address/0x95714818fdd7a5454f73da9c777b3ee6ebaeea6b">0x95714818fdd7a5454f73da9c777b3ee6ebaeea6b</a></p>
+<h4 id="polygon-137"><a class="header" href="#polygon-137">Polygon 137</a></h4>
+<p>cBridge: <a href="https://polygonscan.com/address/0x88DCDC47D2f83a99CF0000FDF667A468bB958a78">0x88DCDC47D2f83a99CF0000FDF667A468bB958a78</a></p>
+<p>MessageBus: <a href="https://polygonscan.com/address/0xaFDb9C40C7144022811F034EE07Ce2E110093fe6">0xaFDb9C40C7144022811F034EE07Ce2E110093fe6</a></p>
+<h4 id="fantom-250"><a class="header" href="#fantom-250">Fantom 250</a></h4>
+<p>cBridge: <a href="https://ftmscan.com/address/0x374B8a9f3eC5eB2D97ECA84Ea27aCa45aa1C57EF">0x374B8a9f3eC5eB2D97ECA84Ea27aCa45aa1C57EF</a></p>
+<p>MessageBus: <a href="https://ftmscan.com/address/0xFF4E183a0Ceb4Fa98E63BbF8077B929c8E5A2bA4">0xFF4E183a0Ceb4Fa98E63BbF8077B929c8E5A2bA4</a></p>
+<h4 id="avalanche-43114"><a class="header" href="#avalanche-43114">Avalanche 43114</a></h4>
+<p>cBridge: <a href="https://snowtrace.io/address/0xef3c714c9425a8F3697A9C969Dc1af30ba82e5d4">0xef3c714c9425a8F3697A9C969Dc1af30ba82e5d4</a></p>
+<p>MessageBus: <a href="https://snowtrace.io/address/0x5a926eeeafc4d217add17e9641e8ce23cd01ad57">0x5a926eeeafc4d217add17e9641e8ce23cd01ad57</a></p>
+<h4 id="arbitrum-one-42161"><a class="header" href="#arbitrum-one-42161">Arbitrum One 42161</a></h4>
+<p>cBridge: <a href="https://arbiscan.io/address/0x1619DE6B6B20eD217a58d00f37B9d47C7663feca">0x1619DE6B6B20eD217a58d00f37B9d47C7663feca</a></p>
+<p>MessageBus: <a href="https://arbiscan.io/address/0x3ad9d0648cdaa2426331e894e980d0a5ed16257f">0x3ad9d0648cdaa2426331e894e980d0a5ed16257f</a></p>
+<h4 id="moonriver--1285"><a class="header" href="#moonriver--1285">Moonriver  1285</a></h4>
+<p>cBridge: <a href="https://moonriver.moonscan.io/address/0x841ce48F9446C8E281D3F1444cB859b4A6D0738C">0x841ce48F9446C8E281D3F1444cB859b4A6D0738C</a></p>
+<p>MessageBus: <a href="https://moonriver.moonscan.io/address/0x940dAAbA3F713abFabD79CdD991466fe698CBe54">0x940dAAbA3F713abFabD79CdD991466fe698CBe54</a></p>
+<h4 id="optimism-10"><a class="header" href="#optimism-10"><strong>Optimism 10</strong></a></h4>
+<p>cBridge: <a href="https://optimistic.etherscan.io/address/0x9D39Fc627A6d9d9F8C831c16995b209548cc3401">0x9D39Fc627A6d9d9F8C831c16995b209548cc3401</a></p>
+<p>MessageBus: <a href="https://optimistic.etherscan.io/address/0x0D71D18126E03646eb09FEc929e2ae87b7CAE69d">0x0D71D18126E03646eb09FEc929e2ae87b7CAE69d</a></p>
+<h4 id="aurora-1313161554"><a class="header" href="#aurora-1313161554"><strong>Aurora 1313161554</strong></a></h4>
+<p>cBridge: <a href="https://aurorascan.dev/address/0x841ce48F9446C8E281D3F1444cB859b4A6D0738C">0x841ce48F9446C8E281D3F1444cB859b4A6D0738C</a></p>
+<p>MessageBus: <a href="https://aurorascan.dev/address/0xc1a2D967DfAa6A10f3461bc21864C23C1DD51EeA">0xc1a2D967DfAa6A10f3461bc21864C23C1DD51EeA</a></p>
+<h4 id="syscoin-57"><a class="header" href="#syscoin-57"><strong>Syscoin 57</strong></a></h4>
+<p>MessageBus: <a href="https://explorer.syscoin.org/address/0xf5C6825015280CdfD0b56903F9F8B5A2233476F5/transactions">0xf5C6825015280CdfD0b56903F9F8B5A2233476F5</a></p>
+<h4 id="astar-592"><a class="header" href="#astar-592"><strong>Astar 592</strong></a></h4>
+<p>MessageBus: <a href="https://blockscout.com/astar/address/0xf5C6825015280CdfD0b56903F9F8B5A2233476F5">0xf5C6825015280CdfD0b56903F9F8B5A2233476F5</a></p>
+<h4 id="ape-16350"><a class="header" href="#ape-16350"><strong>Ape</strong> 16350</a></h4>
+<p>MessageBus: <a href="https://explorer.bas.metaapesgame.com/address/0x5471ea8f739dd37E9B81Be9c5c77754D8AA953E4/contracts">0x5471ea8f739dd37E9B81Be9c5c77754D8AA953E4</a></p>
+<h4 id="arbitrum-nova-42170"><a class="header" href="#arbitrum-nova-42170"><strong>Arbitrum Nova</strong> 42170</a></h4>
+<p>MessageBus: <a href="https://nova.arbiscan.io/address/0xf5c6825015280cdfd0b56903f9f8b5a2233476f5#code">0xf5c6825015280cdfd0b56903f9f8b5a2233476f5</a></p>
+<h4 id="milkomeda-c1-2001"><a class="header" href="#milkomeda-c1-2001"><strong>Milkomeda C1 2001</strong></a></h4>
+<p>MessageBus: <a href="https://explorer-mainnet-cardano-evm.c1.milkomeda.com/address/0x81c548584189ba1d54510313d3b5e601f6679818">0x81c548584189ba1d54510313d3b5e601f6679818</a></p>
+<h4 id="zksync-era-324"><a class="header" href="#zksync-era-324"><strong>zkSync</strong> Era <strong>324</strong></a></h4>
+<p>MessageBus: <a href="https://explorer.zksync.io/address/0x9a98a376D30f2c9A0A7332715c15D940dE3da0e2#contract">0x9a98a376D30f2c9A0A7332715c15D940dE3da0e2</a></p>
+<h4 id="filecoin-314"><a class="header" href="#filecoin-314">Filecoin 314</a></h4>
+<p>cBridge: <a href="https://filfox.info/en/address/0xd46f8e428a06789b5884df54e029e738277388d1">0xd46f8e428a06789b5884df54e029e738277388d1</a></p>
+<p>MessageBus: <a href="https://filfox.info/en/address/0x317ed2054ccd6dc47d49550b4de41589e7064154">0x317ed2054CCD6DC47d49550B4dE41589E7064154</a></p>
+<h4 id="polygon-zkevm-1101"><a class="header" href="#polygon-zkevm-1101">Polygon zkEVM 1101</a></h4>
+<p>cBridge: <a href="https://zkevm.polygonscan.com/address/0xD46F8E428A06789B5884df54E029e738277388D1">0xD46F8E428A06789B5884df54E029e738277388D1</a></p>
+<p>MessageBus: <a href="https://zkevm.polygonscan.com/address/0x9Bb46D5100d2Db4608112026951c9C965b233f4D">0x9Bb46D5100d2Db4608112026951c9C965b233f4D</a></p>
+<h4 id="oasis-sapphire-23294"><a class="header" href="#oasis-sapphire-23294"><strong>Oasis Sapphire 23294</strong></a></h4>
+<p>MessageBus:  <a href="https://explorer.sapphire.oasis.io/address/0x9Bb46D5100d2Db4608112026951c9C965b233f4D/contracts">0x9Bb46D5100d2Db4608112026951c9C965b233f4D</a></p>
+<h4 id="sps-13000"><a class="header" href="#sps-13000"><strong>SPS 13000</strong></a></h4>
+<p>cBridge: <a href="https://spsscan.ssquad.games/address/0x3b53D2C7B44d40BE05Fa5E2309FFeB6eB2492d88/">0x3b53D2C7B44d40BE05Fa5E2309FFeB6eB2492d88</a></p>
+<p>MessageBus: <a href="https://spsscan.ssquad.games/address/0xf5C6825015280CdfD0b56903F9F8B5A2233476F5">0xf5C6825015280CdfD0b56903F9F8B5A2233476F5</a></p>
+<h4 id="klaytn-8217"><a class="header" href="#klaytn-8217"><strong>Klaytn 8217</strong></a></h4>
+<p>MessageBus: <a href="https://www.klaytnfinder.io/account/0xf5C6825015280CdfD0b56903F9F8B5A2233476F5">0xf5C6825015280CdfD0b56903F9F8B5A2233476F5</a></p>
+<h4 id="scroll-534352"><a class="header" href="#scroll-534352">Scroll 534352</a></h4>
+<p>cBridge: <a href="https://blockscout.scroll.io/address/0x9B36f165baB9ebe611d491180418d8De4b8f3a1f">0x9B36f165baB9ebe611d491180418d8De4b8f3a1f</a> </p>
+<p>MessageBus: <a href="https://blockscout.scroll.io/address/0x7d43AABC515C356145049227CeE54B608342c0ad">0x7d43AABC515C356145049227CeE54B608342c0ad</a></p>
+<h4 id="linea-59144"><a class="header" href="#linea-59144">Linea 59144</a></h4>
+<p>cBridge: <a href="https://lineascan.build/address/0x9B36f165baB9ebe611d491180418d8De4b8f3a1f#code">0x9B36f165baB9ebe611d491180418d8De4b8f3a1f</a></p>
+<p>MessageBus: <a href="https://lineascan.build/address/0x6F2bD3Dec1A8c4459c2acC318881F63A048c7c28">0x6F2bD3Dec1A8c4459c2acC318881F63A048c7c28</a></p>
+<h4 id="manta-169"><a class="header" href="#manta-169">Manta 169</a></h4>
+<p>cBridge: <a href="https://manta-pacific.calderaexplorer.xyz/address/0x9B36f165baB9ebe611d491180418d8De4b8f3a1f/contracts#address-tabs">0x9B36f165baB9ebe611d491180418d8De4b8f3a1f</a></p>
+<p>MessageBus: <a href="https://pacific-explorer.manta.network/address/0x444848fA6C7BCd2aed23C82dAc1193c4181db057">0x444848fA6C7BCd2aed23C82dAc1193c4181db057</a></p>
+<h4 id="x-layer-196"><a class="header" href="#x-layer-196">X Layer 196</a></h4>
+<p>cBridge: 0x9B36f165baB9ebe611d491180418d8De4b8f3a1f</p>
+<p>MessageBus: 0x265B25e22bcd7f10a5bD6E6410F10537Cc7567e8</p>
+<h4 id="blast-81457"><a class="header" href="#blast-81457">Blast 81457</a></h4>
+<p>cBridge: <a href="https://blastscan.io/address/0x841ce48F9446C8E281D3F1444cB859b4A6D0738C#code">0x841ce48F9446C8E281D3F1444cB859b4A6D0738C</a></p>
+<p>MessageBus: <a href="https://blastscan.io/address/0xFCE49bAa70E415bF410c18D89D321f39BF2637f4#writeProxyContract">0xFCE49bAa70E415bF410c18D89D321f39BF2637f4</a></p>
+<h2 id="testnet"><a class="header" href="#testnet">Testnet</a></h2>
+<h3 id="sgngateway-rpc-1"><a class="header" href="#sgngateway-rpc-1">SGN/Gateway RPC</a></h3>
+<p>The current version of executor only supports non-TLS transport since the domain for this env is not ready yet. You can temporarily use these endpoints:</p>
+<h4 id="https"><a class="header" href="#https">HTTPS</a></h4>
+<p><strong>SGN gRPC</strong>: cbridge-v2-test.celer.network:9094</p>
+<p><strong>Gateway gRPC</strong>: cbridge-v2-test.celer.network:9094</p>
+<h3 id="contracts-1"><a class="header" href="#contracts-1">Contracts</a></h3>
+<h4 id="goerli-testnet-5"><a class="header" href="#goerli-testnet-5">Goerli Testnet 5</a></h4>
+<p>cBridge: <a href="https://goerli.etherscan.io/address/0x358234B325EF9eA8115291A8b81b7d33A2Fa762D">0x358234B325EF9eA8115291A8b81b7d33A2Fa762D</a></p>
+<p>MessageBus: <a href="https://goerli.etherscan.io/address/0xF25170F86E4291a99a9A560032Fe9948b8BcFBB2">0xF25170F86E4291a99a9A560032Fe9948b8BcFBB2</a></p>
+<h4 id="bsc-testnet-97"><a class="header" href="#bsc-testnet-97">BSC Testnet 97</a></h4>
+<p>cBridge: <a href="https://testnet.bscscan.com/address/0xf89354F314faF344Abd754924438bA798E306DF2">0xf89354F314faF344Abd754924438bA798E306DF2</a></p>
+<p>MessageBus: <a href="https://testnet.bscscan.com/address/0xAd204986D6cB67A5Bc76a3CB8974823F43Cb9AAA">0xAd204986D6cB67A5Bc76a3CB8974823F43Cb9AAA</a></p>
+<h4 id="fantom-testnet-4002"><a class="header" href="#fantom-testnet-4002">Fantom Testnet 4002</a></h4>
+<p>cBridge: <a href="https://testnet.ftmscan.com/address/0xFA78cBa4ebbf8fE28B4fC1468948F16Fda2752b3">0xFA78cBa4ebbf8fE28B4fC1468948F16Fda2752b3</a></p>
+<p>MessageBus: <a href="https://testnet.ftmscan.com/address/0xb92d6933A024bcca9A21669a480C236Cbc973110">0xb92d6933A024bcca9A21669a480C236Cbc973110</a></p>
+<h4 id="arbitrum-testnet-421611"><a class="header" href="#arbitrum-testnet-421611">Arbitrum Testnet 421611</a></h4>
+<p>cBridge: <a href="https://testnet.arbiscan.io/address/0x9B36f165baB9ebe611d491180418d8De4b8f3a1f">0x9B36f165baB9ebe611d491180418d8De4b8f3a1f</a></p>
+<p>MessageBus: <a href="https://testnet.arbiscan.io/address/0x7d43AABC515C356145049227CeE54B608342c0ad">0x7d43AABC515C356145049227CeE54B608342c0ad</a></p>
+<h4 id="polygon-mumbai-testnet-80001"><a class="header" href="#polygon-mumbai-testnet-80001">Polygon Mumbai Testnet 80001</a></h4>
+<p>cBridge: <a href="https://mumbai.polygonscan.com/address/0x841ce48F9446C8E281D3F1444cB859b4A6D0738C">0x841ce48F9446C8E281D3F1444cB859b4A6D0738C</a></p>
+<p>MessageBus: <a href="https://mumbai.polygonscan.com/address/0x7d43AABC515C356145049227CeE54B608342c0ad">0x7d43AABC515C356145049227CeE54B608342c0ad</a></p>
+<h4 id="avalanche-c-chain-fuji-testnet-43113"><a class="header" href="#avalanche-c-chain-fuji-testnet-43113">Avalanche C-Chain Fuji Testnet 43113</a></h4>
+<p>cBridge: <a href="https://testnet.snowtrace.io/address/0xe95E3a9f1a45B5EDa71781448F6047d7B7e31cbF">0xe95E3a9f1a45B5EDa71781448F6047d7B7e31cbF</a></p>
+<p>MessageBus: <a href="https://testnet.snowtrace.io/address/0xE9533976C590200E32d95C53f06AE12d292cFc47">0xE9533976C590200E32d95C53f06AE12d292cFc47</a></p>
+<h4 id="dexalot-testnet-432201"><a class="header" href="#dexalot-testnet-432201">Dexalot Testnet 432201</a></h4>
+<p>cBridge: <a href="https://subnets.avax.network/dexalot/testnet/explorer/address/0xb51541df05DE07be38dcfc4a80c05389A54502BB">0xb51541df05DE07be38dcfc4a80c05389A54502BB</a></p>
+<p>MessageBus: <a href="https://subnets.avax.network/dexalot/testnet/explorer/address/0xE0d84Dd724D5e8D7D5e50926a4770D51BA933dF3">0xE0d84Dd724D5e8D7D5e50926a4770D51BA933dF3</a></p>
+<h4 id="godwoken-testnet-71401"><a class="header" href="#godwoken-testnet-71401">Godwoken Testnet 71401</a></h4>
+<p>cBridge:  <a href="https://gw-explorer.nervosdao.community/address/0x7A4a65Db21864384d2D21a60367d7Fd5c86F8Fba">0x7A4a65Db21864384d2D21a60367d7Fd5c86F8Fba</a></p>
+<p>MessageBus: <a href="https://gw-explorer.nervosdao.community/address/0x6ec72D669DFaB92CB3c7DBD499586a8188364DB5">0x6ec72D669DFaB92CB3c7DBD499586a8188364DB5</a></p>
+<h4 id="shibuya-testnet-81"><a class="header" href="#shibuya-testnet-81">Shibuya Testnet 81</a></h4>
+<p>cBridge:  <a href="https://shibuya.subscan.io/account/0xe4871cede6e17c28a633453cdd14b90c2e31c23d">0xe4871Cede6e17c28a633453CDd14b90c2E31C23D</a></p>
+<p>MessageBus: <a href="https://shibuya.subscan.io/account/0xa3d23891f00b8d34e31096c0cee1734595840d4d">0xa3d23891f00B8d34E31096c0CeE1734595840D4D</a></p>
+<h4 id="consensys-zkevm-testnet-59140"><a class="header" href="#consensys-zkevm-testnet-59140">ConsenSys zkEVM Testnet 59140</a></h4>
+<p>MessageBus: <a href="https://explorer.goerli.zkevm.consensys.net/address/0xf5C6825015280CdfD0b56903F9F8B5A2233476F5">0xf5C6825015280CdfD0b56903F9F8B5A2233476F5</a></p>
+<h4 id="filecoin-hyperspace-testnet-3141"><a class="header" href="#filecoin-hyperspace-testnet-3141"><strong>Filecoin Hyperspace Testnet 3141</strong></a></h4>
+<p>cBridge: <a href="https://hyperspace.filfox.info/en/address/0xf5C6825015280CdfD0b56903F9F8B5A2233476F5">0xf5C6825015280CdfD0b56903F9F8B5A2233476F5</a></p>
+<p>MessageBus: <a href="https://hyperspace.filfox.info/en/address/0x5471ea8f739dd37E9B81Be9c5c77754D8AA953E4">0x5471ea8f739dd37E9B81Be9c5c77754D8AA953E4</a></p>
+<h4 id="polygon-zkevm-testnet-1442"><a class="header" href="#polygon-zkevm-testnet-1442">Polygon zkEVM Testnet 1442 </a></h4>
+<p>cBridge: <a href="https://explorer.public.zkevm-test.net/address/0x9Bb46D5100d2Db4608112026951c9C965b233f4D">0x9Bb46D5100d2Db4608112026951c9C965b233f4D</a> </p>
+<p>MessageBus: <a href="https://explorer.public.zkevm-test.net/address/0xDc44EdEde02bC11D31e1BcBC04b17C02F11ac4d7">0xDc44EdEde02bC11D31e1BcBC04b17C02F11ac4d7</a></p>
+<h4 id="scroll-alpha-testnet-534353"><a class="header" href="#scroll-alpha-testnet-534353">Scroll Alpha Testnet 534353</a></h4>
+<p>cBridge: <a href="https://blockscout.scroll.io/address/0x9B36f165baB9ebe611d491180418d8De4b8f3a1f/transactions#address-tabs">0x9B36f165baB9ebe611d491180418d8De4b8f3a1f</a></p>
+<p>MessageBus: <a href="https://blockscout.scroll.io/address/0x5471ea8f739dd37E9B81Be9c5c77754D8AA953E4">0x5471ea8f739dd37E9B81Be9c5c77754D8AA953E4</a></p>
+<h4 id="fncy-testnet"><a class="header" href="#fncy-testnet">FNCY Testnet </a></h4>
+<p>cBridge: <a href="https://fncyscan-testnet.fncy.world/address/0x9B36f165baB9ebe611d491180418d8De4b8f3a1f?view=contract">0x9B36f165baB9ebe611d491180418d8De4b8f3a1f</a></p>
+<p>MessageBus: <a href="https://fncyscan-testnet.fncy.world/address/0xE48151964556381B33f93E05E36381Fd53Ec053E">0xE48151964556381B33f93E05E36381Fd53Ec053E</a></p>
+<h4 id="oasis-sapphire-testnet"><a class="header" href="#oasis-sapphire-testnet">Oasis Sapphire Testnet</a></h4>
+<p>cBridge: <a href="https://testnet.explorer.sapphire.oasis.dev/address/0x9B36f165baB9ebe611d491180418d8De4b8f3a1f">0x9B36f165baB9ebe611d491180418d8De4b8f3a1f</a></p>
+<p>MessageBus: <a href="https://testnet.explorer.sapphire.oasis.dev/address/0x9Bb46D5100d2Db4608112026951c9C965b233f4D">0x9Bb46D5100d2Db4608112026951c9C965b233f4D</a></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="audit-reports"><a class="header" href="#audit-reports">Audit Reports</a></h1>
+<p><a href="https://github.com/celer-network/sgn-v2-contracts/blob/main/audit/PeckShield_message.pdf">PeckShield</a> report</p>
+<p><a href="https://github.com/celer-network/sgn-v2-contracts/blob/main/audit/SlowMist_message.pdf">SlowMist</a> report</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+
+    </div>
+    </body>
+</html>

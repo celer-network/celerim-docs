@@ -1,0 +1,445 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Integration Guide - Celer Inter-chain Messaging(IM)</title>
+
+
+        <!-- Custom HTML head -->
+        <link rel="icon" href="favicon-dark.png" media="(prefers-color-scheme: light)">
+        <link rel="icon" href="favicon-light.png" media="(prefers-color-scheme: dark)">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="shortcut icon" href="../../../favicon-f2934afb.png">
+        <link rel="stylesheet" href="../../../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../../../css/general-2459343d.css">
+        <link rel="stylesheet" href="../../../css/chrome-cc69e1fb.css">
+        <link rel="stylesheet" href="../../../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../../../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../../../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../../../ayu-highlight-56612340.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../../../theme/custom-fc75f45e.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../../../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../../../searchindex-e7ed6bd0.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../../toc-836fd725.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Celer Inter-chain Messaging(IM)</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="integration-guide"><a class="header" href="#integration-guide">Integration Guide</a></h1>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>This tutorial shows how to run the <a href="../contract-examples/batch-transfer.html">cross-chain batch transfer app</a> with your own executor. As an overview, our app does the following things:</p>
+<ol>
+<li>User calls <a href="https://github.com/celer-network/sgn-v2-contracts/blob/e728cfc477/contracts/message/apps/examples/BatchTransfer.sol#L48"><code>batchTransfer</code></a> on the source chain Goerli Testnet, which triggers the sending of tokens along with a message through the Celer IM infrastructure</li>
+<li>Executor polls Celer’s SGN and submits SGN-signed messages to the <code>MessageBus</code> contract on the destination chain BSC Testnet.</li>
+<li><code>BatchTransfer</code> contract on BSC Testnet receives the message and distributes the fund to the receivers specified in the message</li>
+</ol>
+<p>Following this tutorial, you will need to deploy <code>BatchTransfer</code> contracts on Goerli and BSC Testnets, and an Executor node for this test dApp.</p>
+<h3 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h3>
+<ol>
+<li>Solidity Knowledge</li>
+<li>Wallet</li>
+<li>Node.js 12 installed</li>
+<li>Typescript installed</li>
+<li>Experience with basic Unix commands</li>
+</ol>
+<h2 id="contract"><a class="header" href="#contract">Contract</a></h2>
+<p>This tutorial uses <a href="https://hardhat.org/">Hardhat</a> to deploy and verify the contract.</p>
+<h3 id="preparation"><a class="header" href="#preparation">Preparation</a></h3>
+<h4 id="download-message-app-examples"><a class="header" href="#download-message-app-examples">Download message-app-examples</a></h4>
+<pre><code>git clone https://github.com/celer-network/message-app-examples.git
+</code></pre>
+<h4 id="get-the-dependencies"><a class="header" href="#get-the-dependencies">Get the dependencies</a></h4>
+<pre><code>cd message-app-examples
+yarn install
+</code></pre>
+<h3 id="deploy-the-contract"><a class="header" href="#deploy-the-contract">Deploy the Contract</a></h3>
+<p>We are going to deploy <a href="https://im-docs.celer.network/developer/development-guide/contract-examples/hello-world">MsgExampleBasic</a> on goerli and bsc testnet. </p>
+<p>Modify the config file <code>.env</code>. Set up your account’s private key at <code>DEFAULT_PRIVATE_KEY</code>.</p>
+<p>Deploy the contracts and remember to record the addresses of the deployed contracts as we will need them in the next step</p>
+<pre><code class="language-shell"># set MESSAGE_BUS_ADDR in .env to 0xF25170F86E4291a99a9A560032Fe9948b8BcFBB2
+npx hardhat deploy --network goerli --tags MsgExampleBasic
+# reset MESSAGE_BUS_ADDR to 0xAd204986D6cB67A5Bc76a3CB8974823F43Cb9AAA
+npx hardhat deploy --network bscTest --tags MsgExampleBasic
+</code></pre>
+<h3 id="verify-the-contracts"><a class="header" href="#verify-the-contracts">Verify the Contracts</a></h3>
+<p>You should now have the contract addresses on both networks. </p>
+<p>Now run the <code>hardhat verify</code> tasks. Note the last param is our contract’s constructor param used when deploying the contract, which is the address of the message bus.</p>
+<pre><code class="language-shell">npx hardhat verify --network goerli &lt;your-deployed-address-on-goerli&gt; 0xF25170F86E4291a99a9A560032Fe9948b8BcFBB2
+npx hardhat verify --network bscTest &lt;your-deployed-address-on-bsc&gt; 0xAd204986D6cB67A5Bc76a3CB8974823F43Cb9AAA
+</code></pre>
+<p>Woot, that’s quite some work, if everything went right, you should be able to see your contracts on <a href="https://goerli.etherscan.io/">GoerliScan</a> and <a href="https://testnet.bscscan.com/">BscScan</a>. Now we are just one component short of making an inter-chain app. Let’s look into how to deploy the executor in the next section.</p>
+<h2 id="executor"><a class="header" href="#executor">Executor</a></h2>
+<p>In this section, we will learn what the executor is and how it should be configured and deployed</p>
+<p>The executor is a simple program:  it polls SGN for available messages sent by the <code>BatchTransfer</code> contract and calls <code>MessageBus</code> on the destination chain which in turn calls our BatchTransfer’s <code>executeMessageWithTransfer</code> on the destination chain.</p>
+<blockquote>
+<p>Note: “available messages” are messages that </p>
+<ol>
+<li>have been verified by enough SGN validators</li>
+<li>have their corresponding token transfer verified</li>
+</ol>
+</blockquote>
+<p>In addition, the executor also doesn’t submit the message until the transfer associated with the message is executed on-chain.</p>
+<p>Now let’s start deploying the executor for our app.</p>
+<h3 id="preparation-1"><a class="header" href="#preparation-1">Preparation</a></h3>
+<p>Let’s create a home folder for the executor first, this is where the config files will live</p>
+<pre><code class="language-shell">mkdir ~/.executor
+</code></pre>
+<p>Download the executor binary from <a href="https://github.com/celer-network/sgn-v2-networks/tree/main/binaries">this repo</a>, or use <code>curl</code></p>
+<pre><code class="language-bash"># Linux amd64
+curl -L https://github.com/celer-network/sgn-v2-networks/raw/main/binaries/executor-&lt;latest-version&gt;-linux-amd64.tar.gz -o executor.tar.gz
+# Linux arm64
+curl -L https://github.com/celer-network/sgn-v2-networks/raw/main/binaries/executor-&lt;latest-version&gt;-linux-arm64.tar.gz -o executor.tar.gz
+# MacOS Intel chip
+curl -L https://github.com/celer-network/sgn-v2-networks/raw/main/binaries/executor-&lt;latest-version&gt;-darwin-amd64.tar.gz -o executor.tar.gz
+# MacOS Apple chip
+curl -L https://github.com/celer-network/sgn-v2-networks/raw/main/binaries/executor-&lt;latest-version&gt;-darwin-arm64.tar.gz -o executor.tar.gz
+</code></pre>
+<p>Unzip it and move it to a directory on <code>$PATH</code>. We will use <code>/usr/local/bin</code></p>
+<pre><code class="language-shell">tar -xvf executor.tar.gz &amp;&amp; rm executor.tar.gz
+mv executor-* /usr/local/bin/executor # may need sudo, or change this to your preferred location
+</code></pre>
+<p>Make sure the binary runs</p>
+<pre><code class="language-shell"># shell
+executor start
+# output
+2022-04-20 17:19:23.126 |INFO | root.go:49: Reading executor configs
+2022-04-20 17:19:23.127 |INFO | start.go:48: Starting executor
+...
+</code></pre>
+<p>It won’t actually run since we haven’t setup any configs yet, but good to know it at least starts. If it doesn’t, make sure you got the right distribution for your system arch.</p>
+<h3 id="database-setup"><a class="header" href="#database-setup">Database Setup</a></h3>
+<p>Since the executor monitors on-chain events and keeps track of message execution, we’ll need a database. In theory, the executor supports any databases that support any Postgresql dialect database, but it’s only tested with CockroachDB for now</p>
+<h4 id="installation"><a class="header" href="#installation">Installation</a></h4>
+<p>You can visit their <a href="https://www.cockroachlabs.com/docs/v21.2/install-cockroachdb-linux">website</a> for more detailed instructions. Below is an example for running CockroachDB on macOS via Homebrew</p>
+<pre><code class="language-shell">brew install cockroachdb/tap/cockroach
+</code></pre>
+<h4 id="start-db-instance"><a class="header" href="#start-db-instance">Start DB Instance</a></h4>
+<p>Start a single node instance in the background</p>
+<pre><code class="language-shell">cockroach start-single-node --store="$HOME/.crdb-node0" --listen-addr=localhost:26257 --http-addr=localhost:38080 --background --insecure
+</code></pre>
+<p>Test connection</p>
+<pre><code class="language-shell">cockroach sql --insecure
+</code></pre>
+<p>If you see this prompt then everything is right</p>
+<pre><code class="language-shell"># Welcome to the CockroachDB SQL shell.
+# All statements must be terminated by a semicolon.
+# To exit, type: \q.
+#
+# Server version: CockroachDB CCL v21.2.3 (x86_64-apple-darwin19, built 2021/12/14 15:26:20, go1.16.6) (same version as client)
+# Cluster ID: 67881086-b544-4159-803f-2f7b952e1436
+#
+# Enter \? for a brief introduction.
+#
+root@:26257/defaultdb&gt;
+</code></pre>
+<p>I know that’s a lot of steps … but thankfully that’s all for the database. We are almost done here, just a little more configs, then we are off!</p>
+<h3 id="configurations"><a class="header" href="#configurations">Configurations</a></h3>
+<p>The config is simple, you only need two config files and an ETH keystore file.</p>
+<p>First, let’s create the folders and files in the executor home</p>
+<pre><code class="language-shell">.executor/
+  - config/
+      - executor.toml
+      - cbridge.toml
+  - eth-ks/
+      - signer.json
+</code></pre>
+<p>Now we have the files in place, let’s take a look at each individual file and what they do.</p>
+<h4 id="signerjson"><a class="header" href="#signerjson">signer.json</a></h4>
+<p>Since the job of the executor is to submit messages on-chain, a signer keystore is required. Eventually, you may want to delegate the gas cost of the transactions the executor makes to your users, but that’s outside of the scope of this tutorial. We will discuss this topic in later chapters.</p>
+<h4 id="executortoml"><a class="header" href="#executortoml">executor.toml</a></h4>
+<p>This config file houses information about app contract, connectivity, and keystore location. A standard <code>executor.toml</code> looks like this. Remember to fill in the contract addresses and the keystore passphrase.</p>
+<pre><code class="language-toml"># since we don't want the executor to execute messages that are not sent by our
+# BatchTransfer contract, the following items are added to filter only
+# the ones we care about
+[[service]]
+# Fully qualified absolute path only, "~" would not work
+signer_keystore = "/Users/patrickmao/.executor/eth-ks/signer.json"
+signer_passphrase = "&lt;your-keystore-passphrase&gt;"
+[[service.contracts]]
+chain_id = 5 # Goerli
+address = "&lt;BatchTransfer-address&gt;"
+allow_sender_groups = ["batch-transfer"]
+[[service.contracts]]
+chain_id = 97 # Bsc testnet
+address = "&lt;BatchTransfer-address&gt;"
+allow_sender_groups = ["batch-transfer"]
+[[service.contract_sender_groups]]
+# the name/ID of the group. service.contracts refer to a sender group in allow_sender_groups
+name = "batch-transfer" 
+allow = [
+  # allow and execute messages originated from &lt;BatchTransfer-address&gt; on chain 1
+  { chain_id = 5, address = "&lt;BatchTransfer-address&gt;" },
+  # allow and execute messages originated from &lt;BatchTransfer-address&gt; on chain 56
+  { chain_id = 97, address = "&lt;BatchTransfer-address&gt;" },
+]
+
+[sgnd]
+# SGN testnet node0 grpc. executor reads available messages from this endpoint
+sgn_grpc = "cbridge-v2-test.celer.network:9094" 
+# SGN testnet gateway grpc. all tx operations to the SGN is delegated through it
+gateway_grpc = "cbridge-v2-test.celer.network:9094" 
+
+[db]
+url = "localhost:26257"
+</code></pre>
+<h4 id="cbridgetoml"><a class="header" href="#cbridgetoml">cbridge.toml</a></h4>
+<p>Executor relies on multiple on-chain events to do its job. This config file is where we configure on-chain event monitoring behaviors. The only things we need to care about for now is the address of the contracts and RPC endpoint URLs</p>
+<pre><code class="language-toml">[[multichain]]
+chainID = 5
+name = "Goerli"
+gateway = "&lt;your-goerli-rpc&gt;" # fill in your Goerli rpc provider url
+# cBridge (liquidity bridge) contract address. Executor relies on events from this
+# contract to double check and make sure funds are transfered to the destination
+# before it attempts messages on the destination chain
+cbridge = "&lt;copy-addr-from-'Contract Addresses &amp; RPC Info'&gt;"
+# MessageBus contract address. Executor relies this to keep a message execution
+# history (just so you can debug or help out angry customers).
+msgbus = "&lt;copy-addr-from-'Contract Addresses &amp; RPC Info'&gt;"
+blkinterval = 15 # polling interval
+blkdelay = 5 # how many blocks confirmations are required
+maxblkdelta = 5000 # max number of blocks per poll request
+
+[[multichain]]
+chainID = 97
+name = "BSC Testnet"
+gateway = "https://data-seed-prebsc-2-s3.binance.org:8545/"
+cbridge = "&lt;copy-addr-from-'Contract Addresses &amp; RPC Info'&gt;"
+msgbus = "&lt;copy-addr-from-'Contract Addresses &amp; RPC Info'&gt;"
+blkinterval = 3
+blkdelay = 8
+maxblkdelta = 5000
+# on some EVM chains the gas estimation can be off. the below fields 
+# are added to make up for the inconsistancies.
+addgasgwei = 2 # add 2 gwei to gas price
+addgasestimateratio = 0.3 # multiply gas limit by this ratio
+</code></pre>
+<h3 id="running-the-executor"><a class="header" href="#running-the-executor">Running the Executor</a></h3>
+<p>Now with the configs and database out of the way, running the executor is as simple as a line of command (we’ll discuss more reliable deployment methods in <a href="integration-guide-advanced.html">Integration Tutorial: Advanced</a>)</p>
+<pre><code class="language-shell">executor start --loglevel debug --home $HOME/.executor
+</code></pre>
+<blockquote>
+<p>Sometimes executor start might fail because of failures to dial either SGN node or SGN gateway gRPC. It’s probably because we are deploying something. Just wait a while and it’ll most likely resolve.</p>
+</blockquote>
+<p>That’s it, the entire app stack is fully functional now. We’ve come a long way, and now is the moment of truth, will it work or not? </p>
+<h2 id="testing-the-app"><a class="header" href="#testing-the-app">Testing the App</a></h2>
+<p>For testing, we are using test CELR on Goerli. Please add it to your wallet <code>0x5d3c0f4ca5ee99f8e8f59ff9a5fab04f6a7e007f</code></p>
+<h4 id="send-the-request"><a class="header" href="#send-the-request">Send the Request</a></h4>
+<p>Now we are ready to call our MsgExampleBasic contract on Goerli to initiate the whole cross-chain batch transfer process.</p>
+<p>Note: the first param payable amount is the fee for this cross-chain transaction, we are omitting this for now.</p>
+<pre><code class="language-shell">_dstContract &lt;MsgExampleBasic-address-on-bsc&gt;
+_dstChainId 97
+_message 0x1234
+</code></pre>
+<p>After calling the contract, it may take around 30 ~ 120 seconds or so for SGN to monitor, verify and sign the transfer and the message. The executor will automatically pick up the message. The logs should look like this</p>
+<pre><code class="language-shell">│2022-04-27 01:19:42.781 |INFO | executor.go:542: executed xferMsg (id f66aec9401cbc77b525eafccaec49b6f4fe1a0af10c2c26858ee6d47c7628ef0): txhash 2c7fdaa4052af312119553bbae56d47322b981859254fb013afb29a3a40e19e2                                                                                  │
+</code></pre>
+<h2 id="next-advanced-topics"><a class="header" href="#next-advanced-topics">Next: Advanced Topics</a></h2>
+<p>To make the BatchTransfer App more production-ready, there are some advanced functionalities that need to be added, which are covered in the <a href="integration-guide-advanced.html">Integration Guide: Advanced</a>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../developer/development-guide/message-executor/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../../../developer/development-guide/message-executor/integration-guide-advanced.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../developer/development-guide/message-executor/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../../../developer/development-guide/message-executor/integration-guide-advanced.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../../../mark-09e88c2c.min.js"></script>
+        <script src="../../../searcher-c2a407aa.js"></script>
+
+        <script src="../../../clipboard-1626706a.min.js"></script>
+        <script src="../../../highlight-abc7f01d.js"></script>
+        <script src="../../../book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>
